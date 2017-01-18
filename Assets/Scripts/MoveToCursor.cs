@@ -2,35 +2,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveToCursor : MonoBehaviour {
-
-    private float startTime;
-    public Transform CursorTransform;
-    public float duration;
-    private Vector3 startPoint;
-    private Vector3 endPoint;
-    public Camera camera;
-
-
-    void Start()
+namespace Academy.HoloToolkit.Unity
+{
+    public class MoveToCursor : MonoBehaviour
     {
-        startTime = Time.time;
-        startPoint = transform.position;
 
-        if (duration == 0)
+        private float startTime;
+        public float duration;
+        private Vector3 startPoint;
+        private Vector3 endPoint;
+        public bool follow;
+        public GameObject mCursor;
+        public float speed;
+        public float speedUp;
+
+
+        void Start()
         {
-            duration = 1.0f;
-            Debug.Log("Error: duration cant be 0 ... duration set to one");
+
         }
 
-    }
+        void FixedUpdate()
+        {
 
-    void FixedUpdate()
-    { 
-        Vector3 cursorPoint = camera.ScreenToWorldPoint(CursorTransform.position);
+            // Bewegung durch Rotation
+            Transform TrCamera = Camera.main.transform;
 
-        endPoint = new Vector3(cursorPoint.x + 10, startPoint.y, startPoint.z);
 
-        transform.position = Vector3.Lerp(startPoint, endPoint, (Time.time - startTime) / duration);
+            float distance = 0.001f;
+
+            if (TrCamera.rotation.z < 0)
+            {
+                gameObject.GetComponent<Renderer>().material.color = Color.red;
+
+                transform.position = new Vector3(transform.position.x + distance, transform.position.y, transform.position.z);
+            }
+            else if (TrCamera.rotation.z > 0)
+            {
+                gameObject.GetComponent<Renderer>().material.color = Color.green;
+
+                transform.position = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                gameObject.GetComponent<Renderer>().material.color = Color.white;
+            }
+
+
+            /*
+            startPoint = transform.position;
+            
+            if (true)
+            {
+                
+                Vector3 cursorPoint = Camera.main.ScreenToWorldPoint(mCursor.transform.position);
+                cursorPoint.z = startPoint.z;
+                cursorPoint.y = startPoint.y;
+                
+                if (cursorPoint.x != transform.position.x)
+                {
+                    transform.position = Vector3.Lerp(startPoint, endPoint, (startTime - Time.time) / duration);
+                    //transform.transform.up = GazeManager.Instance.Normal;
+                }
+                else
+                {
+                    ray = Camera.main.ScreenPointToRay(mCursor.transform.position);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    {
+                        Vector3 endPoint = new Vector3(hit.point.x, startPoint.y, startPoint.z);
+                        transform.position = Vector3.Lerp(startPoint, endPoint, (startTime - Time.time)/duration);
+                    }
+                } 
+
+            }
+            */
+        }
+
     }
 }

@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         if (Highscore == null)
         {
             Highscore = new HighscoreData();
-            Highscore.addItem(data);
+            Highscore.AddItem(data);
         }
     }
 

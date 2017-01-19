@@ -2,38 +2,89 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class HighscoreData : MonoBehaviour
 {
-    private static List<PlayerData> highscoreData;
+    private List<PlayerData> highscoreData;
+    public GameObject highscoreItem;
+    public int ListSize;
+    public string PreferenceKey;
 
     // Use this for initialization
     void Start()
     {
-        highscoreData = new List<PlayerData>();
-        int listSize = UnityEngine.Random.Range(3, 20);
-        for (int i = 0; i < 10; i++)
+        // highscoreData = PreferenceManager.ReadJsonFromPreferences<List<PlayerData>>(PreferenceKey);
+        if (highscoreData == null || highscoreData.Count == 0)
         {
-            addItem("Player " + (i + 1), UnityEngine.Random.Range(0, 9999));
+            highscoreData = new List<PlayerData>();
+            for (int i = 0; i < 3; i++)
+            {
+                AddItem("Player " + (i + 1), UnityEngine.Random.Range(0, 9999));
+            }
+        }
+        UpdateListView();
+        Debug.Log("Finished Initialization");
+    }
+
+    void OnDestroy()
+    {
+        //PreferenceManager.WriteJsonToPreferences(PreferenceKey, highscoreData);
+    }
+
+    public void UpdateListView()
+    {
+        int i = 0;
+        while (i < ListSize && i < highscoreData.Count)
+        {
+            GameObject menuItem = Instantiate(highscoreItem);
+            menuItem.transform.parent = transform;
+            
+            Text[] contentText = menuItem.GetComponentsInChildren<Text>();
+            foreach (var text in contentText)
+            {
+                if (text.name == "Score")
+                {
+                    text.text = highscoreData[i].Score.ToString();
+                }
+                if (text.name == "Player Name")
+                {
+                    text.text = highscoreData[i].PlayerName;
+                }
+            }
+            Debug.Log("Initialized: " + highscoreData[i].PlayerName);
+
+            i++;
         }
     }
 
-    public void addItem(PlayerData player)
+    public void AddItem(PlayerData player)
     {
-        highscoreData.Add(player);
+        bool inserted = false;
+        for (int i = 0; i < highscoreData.Count; i++)
+        {
+            if (player.Score > highscoreData[i].Score)
+            {
+                highscoreData.Insert(i, player);
+                inserted = true;
+                i = highscoreData.Count;
+                Debug.Log("Initialized["+i+" of "+highscoreData.Count+"]: " + player.Score);
+            }
+        }
+        if (!inserted)
+        {
+            highscoreData.Add(player);
+            Debug.Log("Initialized[" + (highscoreData.Count-1) + "]: " + player.Score);
+        }
     }
 
-    public void addItem(String name, int score)
+    public void AddItem(String name, int score)
     {
         PlayerData p = new PlayerData();
         p.PlayerName = name;
         p.Score = score;
-        addItem(p);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        AddItem(p);
     }
 }

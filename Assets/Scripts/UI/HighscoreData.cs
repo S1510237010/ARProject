@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,18 +20,21 @@ public class HighscoreData : MonoBehaviour
         if (highscoreData == null || highscoreData.Count == 0)
         {
             highscoreData = new List<PlayerData>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < ListSize; i++)
             {
-                AddItem("Player " + (i + 1), UnityEngine.Random.Range(0, 9999));
+                PlayerData data = PreferenceManager.ReadJsonFromPreferences<PlayerData>(PreferenceKey + i);
+                if(data != null)
+                    highscoreData.Add(data);
             }
         }
+        storeData();
         UpdateListView();
         Debug.Log("Finished Initialization");
     }
 
     void OnDestroy()
     {
-        //PreferenceManager.WriteJsonToPreferences(PreferenceKey, highscoreData);
+       storeData();
     }
 
     public void UpdateListView()
@@ -46,7 +50,7 @@ public class HighscoreData : MonoBehaviour
             {
                 if (text.name == "Score")
                 {
-                    text.text = highscoreData[i].Score.ToString();
+                    text.text = highscoreData[i].Score.ToString() + " |";
                 }
                 if (text.name == "Player Name")
                 {
@@ -86,5 +90,15 @@ public class HighscoreData : MonoBehaviour
         p.Score = score;
 
         AddItem(p);
+    }
+
+    private void storeData()
+    {
+        int i = 0;
+        while (i < highscoreData.Count && i < ListSize)
+        {
+            PreferenceManager.WriteJsonToPreferences<PlayerData>(PreferenceKey + i, highscoreData[i]);
+            i++;
+        }
     }
 }

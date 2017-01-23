@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,17 @@ public class PreferenceManager : MonoBehaviour
     {
         string json = PlayerPrefs.GetString(key);
         Debug.Log(key + " contains: " + json);
-        return JsonUtility.FromJson<T>(json);
+        T data = default(T);
+        try
+        {
+            data = JsonUtility.FromJson<T>(json);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+        return data;
+        
     }
 
     public static void WriteJsonToPreferences<T>(string key, T data)

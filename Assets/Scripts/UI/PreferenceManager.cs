@@ -16,7 +16,7 @@ public class PreferenceManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e.Message);
+            Debug.Log(e);
         }
         return data;
         
@@ -25,7 +25,6 @@ public class PreferenceManager : MonoBehaviour
     public static void WriteJsonToPreferences<T>(string key, T data)
     {
         string json = JsonUtility.ToJson(data);
-        Debug.Log(key + " Json: " + json);
         PlayerPrefs.SetString(key, json);
         PlayerPrefs.Save();
     }

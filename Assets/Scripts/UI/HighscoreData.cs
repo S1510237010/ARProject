@@ -16,20 +16,22 @@ public class HighscoreData : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // highscoreData = PreferenceManager.ReadJsonFromPreferences<List<PlayerData>>(PreferenceKey);
-        if (highscoreData == null || highscoreData.Count == 0)
+        highscoreData = new List<PlayerData>();
+        for (int i = 0; i < ListSize; i++)
         {
-            highscoreData = new List<PlayerData>();
-            for (int i = 0; i < ListSize; i++)
+            PlayerData data = PreferenceManager.ReadJsonFromPreferences<PlayerData>(PreferenceKey + i);
+            if (data != null)
             {
-                PlayerData data = PreferenceManager.ReadJsonFromPreferences<PlayerData>(PreferenceKey + i);
-                if(data != null)
-                    highscoreData.Add(data);
+                highscoreData.Add(data);
+            }
+            else
+            {
+                i = ListSize;
             }
         }
-        storeData();
+        
         UpdateListView();
-        Debug.Log("Finished Initialization");
+        Debug.Log("Finished Highscore Initialization");
     }
 
     void OnDestroy()
@@ -63,6 +65,7 @@ public class HighscoreData : MonoBehaviour
         }
     }
 
+
     public void AddItem(PlayerData player)
     {
         bool inserted = false;
@@ -73,13 +76,11 @@ public class HighscoreData : MonoBehaviour
                 highscoreData.Insert(i, player);
                 inserted = true;
                 i = highscoreData.Count;
-                Debug.Log("Initialized["+i+" of "+highscoreData.Count+"]: " + player.Score);
             }
         }
         if (!inserted)
         {
             highscoreData.Add(player);
-            Debug.Log("Initialized[" + (highscoreData.Count-1) + "]: " + player.Score);
         }
     }
 

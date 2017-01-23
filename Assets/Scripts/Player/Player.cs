@@ -9,10 +9,26 @@ public class Player : MonoBehaviour
     public GameObject playerObject;
     public HighscoreData Highscore;
     public float distance = 0.001f;
+    public int PointsPerItem = 5;
 
-    public void ItemCollected(int points)
+    public void ItemCollected()
     {
-        data.Score += points;
+        data.Score += PointsPerItem;
+    }
+
+    /**
+     *  Collission Event Handling for items, ... 
+     */
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("item"))
+        {
+            other.gameObject.SetActive(false);
+            ItemCollected();
+        }else if(other.gameObject.CompareTag("spike") || other.gameObject.CompareTag("border"))
+        {
+            onKill();
+        }
     }
 
     public void onRun()

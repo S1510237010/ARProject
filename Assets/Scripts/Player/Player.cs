@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private PlayerData data;
+    public HighscoreData Highscore;
     public GameObject playerObject;
     public float distance = 0.001f;
     public int PointsPerItem = 5;

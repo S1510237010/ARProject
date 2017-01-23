@@ -51,4 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f1e922c094057428f8d7e222840cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParticleSystems: []
+  ParticleSystems:
+  - {fileID: 1281843441951096, guid: 60f27a7a38abd814789887a94853fa2d, type: 2}

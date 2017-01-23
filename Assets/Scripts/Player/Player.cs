@@ -7,9 +7,19 @@ public class Player : MonoBehaviour
 {
     private PlayerData data;
     public GameObject playerObject;
-    public HighscoreData Highscore;
     public float distance = 0.001f;
     public int PointsPerItem = 5;
+
+    public String PlayerName
+    {
+        get { return data.PlayerName; }
+        set { data.PlayerName = value; }
+    }
+
+    public int Score
+    {
+        get { return data.Score; }
+    }
 
     public void ItemCollected()
     {
@@ -67,6 +77,9 @@ public class Player : MonoBehaviour
     {
         //TODO: Play death SFX
         //AudioSource.PlayClipAtPoint(SFK ,gameObject.transform.position);
+
+        //Spawns explosion at player position
+        ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
         Destroy(gameObject);
     }
 

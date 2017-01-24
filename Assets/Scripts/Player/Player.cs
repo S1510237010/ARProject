@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
         //AudioSource.PlayClipAtPoint(SFK ,gameObject.transform.position);
 
         //Spawns explosion at player position
-        ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+        //ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
         Destroy(gameObject);
     }
 

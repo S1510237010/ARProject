@@ -24,7 +24,8 @@ public class ParticleSpawner : MonoBehaviour
         newParticleSystem.transform.position = particlePosition.position;
 
         //Starts a new Coroutine to destroy the particle system once it's duration is over
-        StartCoroutine(DestroyParticleSystem(newParticleSystem, (int)newParticleSystem.GetComponent<ParticleSystem>().duration));
+        int duration = (int)newParticleSystem.GetComponent<ParticleSystem>().main.duration;
+        StartCoroutine(DestroyParticleSystem(newParticleSystem, duration));
     }
 
     IEnumerator DestroyParticleSystem(GameObject pSystem, int t)

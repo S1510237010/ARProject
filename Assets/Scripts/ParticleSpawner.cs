@@ -17,7 +17,7 @@ public class ParticleSpawner : MonoBehaviour
 
     public GameObject[] ParticleSystems;
 
-    public void SpawnParticleSystem(int particleIndex, Transform particlePosition)
+    public int SpawnParticleSystem(int particleIndex, Transform particlePosition)
     {
         // Instantiate the new Particle System
         GameObject newParticleSystem = GameObject.Instantiate(ParticleSystems[particleIndex]);
@@ -26,6 +26,7 @@ public class ParticleSpawner : MonoBehaviour
         //Starts a new Coroutine to destroy the particle system once it's duration is over
         int duration = (int)newParticleSystem.GetComponent<ParticleSystem>().main.duration;
         StartCoroutine(DestroyParticleSystem(newParticleSystem, duration));
+        return duration;
     }
 
     IEnumerator DestroyParticleSystem(GameObject pSystem, int t)

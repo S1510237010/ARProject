@@ -6,8 +6,41 @@ public class TestPlayer : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "item")
+        {
+            //Add points to highscore
+            collectItem(other.GetComponent<Item>());
+        }
+
+        if (other.tag == "spikes")
+        {
+            //Kill the player
+            die();
+            //Navigate to the next scene
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "border")
+        {
+            die();
+        }
+    }
+
+    //Todo: Add respawn and sound
+    void die()
+    {
+        Debug.Log("Dead");
         Destroy(gameObject);
-        ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+        int duration = ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+    }
+
+    //Todo: Add special effects and sound
+    void collectItem(Item item)
+    {
+        Debug.Log("+" + item.ItemValue + " Points!");
+        Destroy(item.gameObject);
     }
 
     // Use this for initialization

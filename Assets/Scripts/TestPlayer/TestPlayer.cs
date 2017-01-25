@@ -40,6 +40,7 @@ public class TestPlayer : MonoBehaviour {
     void collectItem(Item item)
     {
         Debug.Log("+" + item.ItemValue + " Points!");
+        ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
         Destroy(item.gameObject);
     }
 

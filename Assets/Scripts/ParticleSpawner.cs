@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ParticleSpawner : MonoBehaviour
@@ -24,7 +26,7 @@ public class ParticleSpawner : MonoBehaviour
         newParticleSystem.transform.position = particlePosition.position;
 
         //Starts a new Coroutine to destroy the particle system once it's duration is over
-        int duration = (int)newParticleSystem.GetComponent<ParticleSystem>().main.duration;
+        int duration = (int)Math.Ceiling(newParticleSystem.GetComponent<ParticleSystem>().main.duration);
         StartCoroutine(DestroyParticleSystem(newParticleSystem, duration));
         return duration;
     }
@@ -33,6 +35,7 @@ public class ParticleSpawner : MonoBehaviour
     {
         //Waits for the specified time and continues afterwards
         yield return new WaitForSeconds(t);
+        
 
         if (pSystem != null)
         {

@@ -9,18 +9,18 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1281843441951096}
+  m_RootGameObject: {fileID: 1147241512754192}
   m_IsPrefabParent: 1
---- !u!1 &1281843441951096
+--- !u!1 &1147241512754192
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4835923126886640}
-  - component: {fileID: 198821740042628280}
-  - component: {fileID: 199881485306937160}
+  - component: {fileID: 4411559699774042}
+  - component: {fileID: 198506488573114100}
+  - component: {fileID: 199188153188601324}
   m_Layer: 0
   m_Name: Explosion Particle System
   m_TagString: Untagged
@@ -28,12 +28,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4835923126886640
+--- !u!4 &4411559699774042
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281843441951096}
+  m_GameObject: {fileID: 1147241512754192}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,14 +41,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &198821740042628280
+--- !u!198 &198506488573114100
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281843441951096}
+  m_GameObject: {fileID: 1147241512754192}
   serializedVersion: 5
-  lengthInSec: 0.5
+  lengthInSec: 1
   speed: 1
   looping: 0
   prewarm: 0
@@ -96,7 +96,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1771188709
+  randomSeed: -1984653488
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -272,7 +272,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
     startSize:
-      scalar: 2
+      scalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2678,13 +2678,13 @@ ParticleSystem:
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
---- !u!199 &199881485306937160
+--- !u!199 &199188153188601324
 ParticleSystemRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1281843441951096}
+  m_GameObject: {fileID: 1147241512754192}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

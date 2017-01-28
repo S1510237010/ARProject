@@ -5,23 +5,5 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scene/Menu.unity
   - enabled: 1
-    path: Assets/Scene/anna.unity
-<<<<<<< HEAD
-=======
-  - enabled: 1
-    path: Assets/Scene/Level/Level0.unity
->>>>>>> origin/master
-  - enabled: 0
-    path: Assets/Scene/CollissionTest.unity
-  - enabled: 0
-    path: Assets/Scene/Highscore.unity
-<<<<<<< HEAD
-  - enabled: 0
-    path: Assets/Scene/Level/Level0.unity
-  - enabled: 1
-    path: Assets/Scene/SpartialMapping.unity
-=======
->>>>>>> origin/master
+    path: Assets/Scene/ParticleTest.unity

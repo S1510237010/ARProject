@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33009344492799620}
   - component: {fileID: 23355146825646810}
   - component: {fileID: 95442414672061310}
-  - component: {fileID: 65998666698051812}
   - component: {fileID: 114158040262004100}
+  - component: {fileID: 65728807329412730}
   m_Layer: 0
   m_Name: Gem Item
   m_TagString: item
@@ -37,9 +37,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1787231421589682}
-  m_LocalRotation: {x: 0.000000015454312, y: 0.7071067, z: -0.000000015454308, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.15, y: 6.31, z: 33.66}
-  m_LocalScale: {x: 0.5, y: 2, z: 1}
+  m_LocalScale: {x: 0.25, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1787231421589682}
   m_Mesh: {fileID: 4300000, guid: a6cc13e271606a74499f4851fa72faed, type: 3}
---- !u!65 &65998666698051812
+--- !u!65 &65728807329412730
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -92,7 +92,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.63604516, y: 0.6859451, z: 0.68594503}
+  m_Size: {x: 0.12720904, y: 0.13718902, z: 0.137189}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95442414672061310
 Animator:

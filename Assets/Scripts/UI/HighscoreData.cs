@@ -15,6 +15,23 @@ public class HighscoreData : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        LoadData();
+        PlayerData currentPlayerData = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
+        AddItem(currentPlayerData);
+        if (highscoreItem != null)
+        {
+            UpdateListView();
+        }
+        Debug.Log("Finished Highscore Initialization");
+    }
+
+    void OnDestroy()
+    {
+       storeData();
+    }
+
+    public void LoadData()
+    {
         highscoreData = new List<PlayerData>();
         for (int i = 0; i < ListSize; i++)
         {
@@ -28,14 +45,6 @@ public class HighscoreData : MonoBehaviour
                 i = ListSize;
             }
         }
-        
-        UpdateListView();
-        Debug.Log("Finished Highscore Initialization");
-    }
-
-    void OnDestroy()
-    {
-       storeData();
     }
 
     public void UpdateListView()
@@ -64,22 +73,24 @@ public class HighscoreData : MonoBehaviour
         }
     }
 
-
     public void AddItem(PlayerData player)
     {
         bool inserted = false;
-        for (int i = 0; i < highscoreData.Count; i++)
+        if (player != null)
         {
-            if (player.Score > highscoreData[i].Score)
+            for (int i = 0; i < highscoreData.Count; i++)
             {
-                highscoreData.Insert(i, player);
-                inserted = true;
-                i = highscoreData.Count;
+                if (player.Score > highscoreData[i].Score)
+                {
+                    highscoreData.Insert(i, player);
+                    inserted = true;
+                    i = highscoreData.Count;
+                }
             }
-        }
-        if (!inserted)
-        {
-            highscoreData.Add(player);
+            if (!inserted)
+            {
+                highscoreData.Add(player);
+            }
         }
     }
 
@@ -88,7 +99,6 @@ public class HighscoreData : MonoBehaviour
         PlayerData p = new PlayerData();
         p.PlayerName = name;
         p.Score = score;
-
         AddItem(p);
     }
 

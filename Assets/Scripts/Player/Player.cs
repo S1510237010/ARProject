@@ -99,15 +99,11 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
     
+    */
     void OnDestroy()
     {
-        if (Highscore == null)
-        {
-            Highscore = new HighscoreData();
-            Highscore.AddItem(data);
-        }
+        PreferenceManager.WriteJsonToPreferences("player", data);
     }
-    */
 
     // Use this for initialization
     void Start () {

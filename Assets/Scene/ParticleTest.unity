@@ -336,6 +336,58 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1938682407
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: InitialModule.maxNumParticles
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: ColorModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key0.rgba
+      value: 1811939327
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 31611
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.atime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198438953100129122, guid: f7411cf38f09ac14c8c77d3c6df9212d,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key2.rgba
+      value: 2550136832
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894578204217416, guid: f7411cf38f09ac14c8c77d3c6df9212d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831220032453222, guid: f7411cf38f09ac14c8c77d3c6df9212d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999732040762320, guid: f7411cf38f09ac14c8c77d3c6df9212d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7411cf38f09ac14c8c77d3c6df9212d, type: 2}
   m_IsPrefabParent: 0

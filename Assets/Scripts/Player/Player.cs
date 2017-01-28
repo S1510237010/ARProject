@@ -47,11 +47,11 @@ public class Player : MonoBehaviour
 	void die()
 	{
 		Debug.Log("Dead");
-		/*
+
 		if (SoundManager.Instance != null) {
 			SoundManager.Instance.playSoundAt (1, gameObject.transform);
 		}
-		*/
+
 		int duration = ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
 		Destroy(gameObject);
 	}

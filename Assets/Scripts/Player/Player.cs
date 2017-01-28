@@ -6,10 +6,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private PlayerData data;
-    public HighscoreData Highscore;
+    //public HighscoreData Highscore;
     public GameObject playerObject;
     public float distance = 0.001f;
-    public int PointsPerItem = 5;
 
     public String PlayerName
     {
@@ -22,32 +21,48 @@ public class Player : MonoBehaviour
         get { return data.Score; }
     }
 
-    public void ItemCollected()
-    {
-        data.Score += PointsPerItem;
-    }
-
-    /**
-     *  Collission Event Handling for items, ... 
-     */
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("item"))
+        if (other.tag == "item")
         {
-            other.gameObject.SetActive(false);
-            ItemCollected();
-        }else if(other.gameObject.CompareTag("spike") || other.gameObject.CompareTag("border"))
-        {
-            onKill();
+            //Add points to highscore
+            collectItem(other.GetComponent<Item>());
         }
+
+        if (other.tag == "spikes")
+        {
+            //Kill the player
+            die();
+            //Navigate to the next scene
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "border")
+        {
+            die();
+        }
+    }
+
+    //Todo: Add respawn and sound
+    void die()
+    {
+        Debug.Log("Dead");
+        Destroy(gameObject);
+        int duration = ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+    }
+
+    //Todo: Add special effects and sound
+    void collectItem(Item item)
+    {
+        Debug.Log("+" + item.ItemValue + " Points!");
+        ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
+        Destroy(item.gameObject);
     }
 
     public void onRun()
     {
-        //TODO: Play jump SFX
-        //AudioSource.PlayClipAtPoint(SFK ,gameObject.transform.position);
-
-
         Transform TrCamera = Camera.main.transform;
 
         if (TrCamera.rotation.z < 0)
@@ -73,7 +88,7 @@ public class Player : MonoBehaviour
         //TODO: Play jump SFX
         //AudioSource.PlayClipAtPoint(SFK ,gameObject.transform.position);
     }
-
+    /*
     public void onKill()
     {
         //TODO: Play death SFX
@@ -83,7 +98,7 @@ public class Player : MonoBehaviour
         //ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
         Destroy(gameObject);
     }
-
+    
     void OnDestroy()
     {
         if (Highscore == null)
@@ -92,10 +107,10 @@ public class Player : MonoBehaviour
             Highscore.AddItem(data);
         }
     }
-
+    */
 
     // Use this for initialization
-	void Start () {
+    void Start () {
 		//TODO: Get PlayerName
         
 	}

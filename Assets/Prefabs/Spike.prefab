@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4882325277140022}
   - component: {fileID: 33394719700897322}
   - component: {fileID: 23784444084761918}
-  - component: {fileID: 64576431819868120}
-  - component: {fileID: 95600727340549396}
   - component: {fileID: 64320941626485872}
   m_Layer: 0
   m_Name: Spike
@@ -96,34 +94,3 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: b778b192080728f44bb65ad68d7579cc, type: 3}
---- !u!64 &64576431819868120
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1299210666503300}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: b778b192080728f44bb65ad68d7579cc, type: 3}
---- !u!95 &95600727340549396
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1299210666503300}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b778b192080728f44bb65ad68d7579cc, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1

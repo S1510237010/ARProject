@@ -27,13 +27,13 @@ public class SoundManager : MonoBehaviour
 	public void playSoundAt(int index, Transform transform)
 	{
 		if (index >= 0 && index < SoundClips.Length) {
-			AudioSource source = gameObject.AddComponent<AudioSource> ();
+			AudioSource source = new GameObject().AddComponent<AudioSource> ();
 			source.transform.position = transform.position;
 			source.volume = SoundVolume;
 			source.PlayOneShot (SoundClips[index]);
 
 			int duration = (int)Math.Ceiling(SoundClips[index].length);
-			StartCoroutine(DestroyAudioSource(source, duration));
+			StartCoroutine(DestroyGameObject(source.gameObject, duration));
 		}
 	}
 
@@ -55,6 +55,15 @@ public class SoundManager : MonoBehaviour
 		yield return new WaitForSeconds(t);
 		if (source != null) {
 			Destroy (source);
+		}
+	}
+
+	IEnumerator DestroyGameObject(GameObject tempObject, int t)
+	{
+		//Waits for the specified time and continues afterwards
+		yield return new WaitForSeconds(t);
+		if (tempObject != null) {
+			Destroy (tempObject);
 		}
 	}
 

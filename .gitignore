@@ -27,3 +27,7 @@ ExportedObj/
 sysinfo.txt
 Assets/Prefabs/HighscoreItem.prefab
 Assets/Prefabs/HighscoreItem.prefab
+ProjectSettings/EditorBuildSettings.asset
+Assets/Scripts/Input.meta
+Assets/Scripts/Input.meta
+*.meta

@@ -24,15 +24,17 @@ public class SpaceCollectionManager : Singleton<SpaceCollectionManager>
 
         foreach (GameObject spacePrefab in spaceObjectPrefabs)
         {
-            Placeable placeable = spacePrefab.GetComponent<Placeable>();
-            if (placeable.PlacementSurface == PlacementSurfaces.Horizontal)
-            {
-                horizontalObjects.Add(spacePrefab);
-            }
-            else
-            {
-                verticalObjects.Add(spacePrefab);
-            }
+            if(spacePrefab != null && spacePrefab.GetComponent<Placeable>() != null) {
+                Placeable placeable = spacePrefab.GetComponent<Placeable>();
+                if (placeable.PlacementSurface == PlacementSurfaces.Horizontal)
+                {
+                    horizontalObjects.Add(spacePrefab);
+                }
+                else
+                {
+                    verticalObjects.Add(spacePrefab);
+                }
+            } 
         }
 
         if (horizontalObjects.Count > 0)

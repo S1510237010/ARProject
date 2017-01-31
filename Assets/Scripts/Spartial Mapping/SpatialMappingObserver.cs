@@ -38,6 +38,9 @@ namespace Academy.HoloToolkit.Unity
         [Tooltip("How long to wait (in sec) between Spatial Mapping updates.")]
         public float TimeBetweenUpdates = 3.5f;
 
+        [Tooltip("Recalculates normals whenever a mesh is updated.")]
+        public bool RecalculateNormals = false;
+
         /// <summary>
         /// Event for hooking when surfaces are changed.
         /// </summary>
@@ -135,21 +138,15 @@ namespace Academy.HoloToolkit.Unity
         /// </summary>
         public void StartObserving()
         {
+            if (observer == null)
+            {
+                observer = new SurfaceObserver();
+                observer.SetVolumeAsAxisAlignedBox(Vector3.zero, Extents);
+            }
+
             if (ObserverState != ObserverStates.Running)
             {
-                // on device, this isn't necessary, but sometimes in the emulator the observer 
-                // won't realize that it hasn't already sent you the surfaces, and since the surfaces
-                // don't really get updated in the emulator you'll end up getting no surfaces at all.
-                if (surfaces.Count == 0)
-                {
-                    if (observer != null)
-                    {
-                        observer.Dispose();
-                        observer = null;
-                    }
-                    observer = new SurfaceObserver();
-                }
-
+                Debug.Log("Starting the observer.");
                 ObserverState = ObserverStates.Running;
 
                 // We want the first update immediately.
@@ -247,6 +244,15 @@ namespace Academy.HoloToolkit.Unity
                 renderer.sharedMaterial = SpatialMappingManager.Instance.SurfaceMaterial;
                 renderer.enabled = SpatialMappingManager.Instance.DrawVisualMeshes;
 
+                if (RecalculateNormals)
+                {
+                    MeshFilter filter = surface.GetComponent<MeshFilter>();
+                    if (filter != null && filter.sharedMesh != null)
+                    {
+                        filter.sharedMesh.RecalculateNormals();
+                    }
+                }
+
                 if (SpatialMappingManager.Instance.CastShadows == false)
                 {
                     renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -301,12 +307,9 @@ namespace Academy.HoloToolkit.Unity
             // to represent its state and attach some Mesh-related
             // components to it.
             GameObject toReturn = AddSurfaceObject(null, string.Format("Surface-{0}", surfaceID), transform, surfaceID);
-
             toReturn.AddComponent<WorldAnchor>();
-
             return toReturn;
         }
-
         /// <summary>
         /// Handles the SurfaceObserver's OnSurfaceChanged event.
         /// </summary>

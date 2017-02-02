@@ -1,30 +1,48 @@
-﻿using UnityEngine;
+﻿using Academy.HoloToolkit.Unity;
+using UnityEngine;
 
 /// <summary>
-/// Destroys the GameObject when it receives the OnSelect message.
+/// Placeholder script for exploding the model.
 /// </summary>
-public class DismissOnSelect : MonoBehaviour
+public class ExpandModel : Singleton<ExpandModel>
 {
-    [Tooltip("Audio clip to play when interacting with this hologram.")]
-    public AudioClip TargetFeedbackSound;
+    // We are using a different model for the expanded view.  Set it here so we can swap it out when we expand.
+    [Tooltip("Game object for the exploded model.")]
+    public GameObject ExpandedModel;
+
+    [Tooltip("Audio clip to play when expanding the model.")]
+    public AudioClip ExpandModelSound;
     private AudioSource audioSource;
     private GameObject audioGameObject;
 
-    void OnSelect()
+    public bool IsModelExpanded { get; private set; }
+
+    void Awake()
+    {
+        IsModelExpanded = false;
+    }
+
+    public void Expand()
     {
         EnableAudioHapticFeedback();
 
-        Destroy(this.gameObject);
         if (audioGameObject != null)
         {
             Destroy(audioGameObject, audioSource.clip.length);
         }
+
+        IsModelExpanded = true;
+    }
+
+    public void Reset()
+    {
+        IsModelExpanded = false;
     }
 
     private void EnableAudioHapticFeedback()
     {
         // If this hologram has an audio clip, add an AudioSource with this clip.
-        if (TargetFeedbackSound != null)
+        if (ExpandModelSound != null)
         {
             audioGameObject = new GameObject();
             audioGameObject.transform.position = gameObject.transform.position;
@@ -35,7 +53,7 @@ public class DismissOnSelect : MonoBehaviour
                 audioSource = audioGameObject.AddComponent<AudioSource>();
             }
 
-            audioSource.clip = TargetFeedbackSound;
+            audioSource.clip = ExpandModelSound;
             audioSource.playOnAwake = false;
             audioSource.spatialBlend = 1;
             audioSource.dopplerLevel = 0;

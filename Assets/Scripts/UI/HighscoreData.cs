@@ -94,14 +94,6 @@ public class HighscoreData : MonoBehaviour
         }
     }
 
-    public void AddItem(String name, int score)
-    {
-        PlayerData p = new PlayerData();
-        p.PlayerName = name;
-        p.Score = score;
-        AddItem(p);
-    }
-
     private void storeData()
     {
         int i = 0;

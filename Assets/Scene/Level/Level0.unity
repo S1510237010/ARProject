@@ -400,7 +400,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4062183034961934, guid: e777b5c002b558346bf3a160eb6b1653, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114384753563273114, guid: e777b5c002b558346bf3a160eb6b1653,
         type: 2}
@@ -1596,7 +1596,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1852883599
+--- !u!1001 &1899989522
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1633,14 +1633,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185423776576378, guid: 3359155f184930b4790a0994a4a42e59, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114247858388759670, guid: 3359155f184930b4790a0994a4a42e59,
-        type: 2}
-      propertyPath: ParticleSystems.Array.data[0]
-      value: 
-      objectReference: {fileID: 1462981564169564, guid: 98fa18e201bd7ce43bef2031ddc9412e,
-        type: 2}
+    - target: {fileID: 1146257617636080, guid: 3359155f184930b4790a0994a4a42e59, type: 2}
+      propertyPath: m_Name
+      value: Particle Spawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3359155f184930b4790a0994a4a42e59, type: 2}
   m_IsPrefabParent: 0
@@ -1770,7 +1768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1977982584}
-  distance: 0.001
+  speed: 0.001
 --- !u!23 &1977982587
 MeshRenderer:
   m_ObjectHideFlags: 0

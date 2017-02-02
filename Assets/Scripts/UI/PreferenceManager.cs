@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class PreferenceManager : MonoBehaviour
 {
+
+	public static void Write(String key, String value){
+		PlayerPrefs.SetString(key, value);
+		PlayerPrefs.Save();
+	}
+
     public static T ReadJsonFromPreferences<T>(string key)
     {
         string json = PlayerPrefs.GetString(key);
@@ -25,7 +31,6 @@ public class PreferenceManager : MonoBehaviour
     public static void WriteJsonToPreferences<T>(string key, T data)
     {
         string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString(key, json);
-        PlayerPrefs.Save();
+		Write (key, json);
     }
 }

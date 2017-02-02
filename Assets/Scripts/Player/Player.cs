@@ -10,7 +10,7 @@ namespace Academy.HoloToolkit.Unity
     {
         private PlayerData data;
         public GameObject playerObject;
-        public float distance = 0.001f;
+        public float speed = 0.001f;
 
         public String PlayerName
         {
@@ -82,13 +82,13 @@ namespace Academy.HoloToolkit.Unity
             {
                 //gameObject.GetComponent<Renderer>().material.color = Color.red;
 
-                playerObject.transform.position = new Vector3(transform.position.x + distance, transform.position.y, transform.position.z);
+                playerObject.transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
             }
             else if (TrCamera.rotation.z > 0)
             {
                 //gameObject.GetComponent<Renderer>().material.color = Color.green;
 
-                playerObject.transform.position = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
+                playerObject.transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
             }
             else
             {
@@ -117,7 +117,7 @@ namespace Academy.HoloToolkit.Unity
             data.Score = 0;
 
 
-            GestureManagerSpartialMapping.Instance.OverrideFocusedObject = this.gameObject;
+            GestureManager.Instance.OverrideFocusedObject = this.gameObject;
 
         }
 

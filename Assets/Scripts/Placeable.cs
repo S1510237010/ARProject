@@ -326,7 +326,7 @@ public class Placeable : MonoBehaviour
 
         // Tell the gesture manager that it is to assume
         // all input is to be given to this object.
-        GestureManagerSpartialMapping.Instance.OverrideFocusedObject = gameObject;
+        GestureManager.Instance.OverrideFocusedObject = gameObject;
 
         // Enter placement mode.
         IsPlacing = true;
@@ -366,7 +366,7 @@ public class Placeable : MonoBehaviour
 
         // Tell the gesture manager that it is to resume
         // its normal behavior.
-        GestureManagerSpartialMapping.Instance.OverrideFocusedObject = null;
+        GestureManager.Instance.OverrideFocusedObject = null;
 
         // Exit placement mode.
         IsPlacing = false;

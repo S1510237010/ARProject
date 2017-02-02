@@ -11,8 +11,8 @@ namespace Academy.HoloToolkit.Unity
     /// When a tap gesture is detected, GestureManager uses GazeManager to find the game object.
     /// GestureManager then sends a message to that game object.
     /// </summary>
-    [RequireComponent(typeof(GazeManagerSpartialMapping))]
-    public partial class GestureManagerSpartialMapping : Singleton<GestureManagerSpartialMapping>
+    [RequireComponent(typeof(GazeManager))]
+    public partial class GestureManager : Singleton<GestureManager>
     {
         /// <summary>
         /// To select even when a hologram is not being gazed at,
@@ -59,13 +59,13 @@ namespace Academy.HoloToolkit.Unity
         {
             GameObject oldFocusedObject = focusedObject;
 
-            if (GazeManagerSpartialMapping.Instance.Hit &&
+            if (GazeManager.Instance.Hit &&
                 OverrideFocusedObject == null &&
-                GazeManagerSpartialMapping.Instance.HitInfo.collider != null)
+                GazeManager.Instance.HitInfo.collider != null)
             {
                 // If gaze hits a hologram, set the focused object to that game object.
                 // Also if the caller has not decided to override the focused object.
-                focusedObject = GazeManagerSpartialMapping.Instance.HitInfo.collider.gameObject;
+                focusedObject = GazeManager.Instance.HitInfo.collider.gameObject;
             }
             else
             {

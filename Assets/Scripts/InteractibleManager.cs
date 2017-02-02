@@ -20,9 +20,9 @@ public class InteractibleManager : Singleton<InteractibleManager>
     {
         oldFocusedGameObject = FocusedGameObject;
 
-        if (GazeManagerSpartialMapping.Instance.Hit)
+        if (GazeManager.Instance.Hit)
         {
-            RaycastHit hitInfo = GazeManagerSpartialMapping.Instance.HitInfo;
+            RaycastHit hitInfo = GazeManager.Instance.HitInfo;
             if (hitInfo.collider != null)
             {
                 FocusedGameObject = hitInfo.collider.gameObject;

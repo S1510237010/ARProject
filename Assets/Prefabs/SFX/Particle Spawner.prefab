@@ -52,5 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParticleSystems:
-  - {fileID: 1147241512754192, guid: a29d1fad2bd29544981519bee13b2240, type: 2}
+  - {fileID: 1462981564169564, guid: 98fa18e201bd7ce43bef2031ddc9412e, type: 2}
   - {fileID: 1295785147689076, guid: f48e6380d03bfee44ac2060e4d62f539, type: 2}

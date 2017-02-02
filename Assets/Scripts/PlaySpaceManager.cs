@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using Academy.HoloToolkit.Unity;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// The SurfaceManager class allows applications to scan the environment for a specified amount of time 
@@ -68,8 +69,6 @@ public class PlaySpaceManager : Singleton<PlaySpaceManager>
                 // The user should be done scanning their environment,
                 // so start processing the spatial mapping data...
 
-                /* TODO: 3.a DEVELOPER CODING EXERCISE 3.a */
-
                 // 3.a: Check if IsObserverRunning() is true on the
                 // SpatialMappingManager.Instance.
                 if (SpatialMappingManager.Instance.IsObserverRunning())
@@ -84,6 +83,10 @@ public class PlaySpaceManager : Singleton<PlaySpaceManager>
 
                 // 3.a: Set meshesProcessed to true.
                 meshesProcessed = true;
+
+                // After scanning jump to the Startscreen of the Game
+                // TO DO
+                SceneManager.LoadScene("Highscore");
             }
         }
     }

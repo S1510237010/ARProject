@@ -11,3 +11,5 @@ EditorBuildSettings:
     path: Assets/Scene/anna.unity
   - enabled: 1
     path: Assets/Scene/Level/Level0.unity
+  - enabled: 1
+    path: Assets/Scene/Highscore.unity

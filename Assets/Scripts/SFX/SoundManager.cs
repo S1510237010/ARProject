@@ -69,10 +69,14 @@ public class SoundManager : MonoBehaviour
 
 	void Start(){
 		instance = this;
-		BackgroundSource.volume = BackgroundVolume;
+		if(BackgroundSource!=null){
+			BackgroundSource.volume = BackgroundVolume;
+		}
 	}
 
 	void Update(){
-		BackgroundSource.volume = BackgroundVolume;
+		if(BackgroundSource!=null){
+			BackgroundSource.volume = BackgroundVolume;
+		}
 	}
 }

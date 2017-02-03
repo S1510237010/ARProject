@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4185423776576378}
   - component: {fileID: 114247858388759670}
+  - component: {fileID: 114402723030264490}
   m_Layer: 0
   m_Name: Particle Spawner
   m_TagString: Untagged
@@ -54,4 +55,14 @@ MonoBehaviour:
   ParticleSystems:
   - {fileID: 1462981564169564, guid: 95fb3caf233898f4cae58d78a8bc5c14, type: 2}
   - {fileID: 1295785147689076, guid: 65268ce0b4857454cbfa20bd7c774fc6, type: 2}
-
+--- !u!114 &114402723030264490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146257617636080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c22598889d1e646aab9df9de745e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

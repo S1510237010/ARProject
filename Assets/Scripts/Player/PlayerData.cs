@@ -11,7 +11,7 @@ public class PlayerData {
 	public float Timer;
 	public int WeightedScore{
 		get{ 
-			return (Score*10) / DeathCount;
+			return (int) (Score / ((DeathCount+1.0)/2.0));
 		}
 	}
 	public PlayerData(string name){

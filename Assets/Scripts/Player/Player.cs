@@ -8,9 +8,11 @@ namespace Academy.HoloToolkit.Unity
 {
     public class Player : MonoBehaviour
     {
+		private Vector3 startPosition;
         private PlayerData data;
         public GameObject playerObject;
         public float speed = 0.001f;
+		private float startTime;
 
         public String PlayerName
         {
@@ -20,50 +22,57 @@ namespace Academy.HoloToolkit.Unity
 
         public int Score
         {
-            get { return data.Score; }
+			get { return data.WeightedScore; }
         }
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "item")
-            {
-                collectItem(other.GetComponent<Item>());
-            }
-
-            if (other.tag == "spikes")
-            {
-                //TODO: respawn the character/reset the scene
-                die();
-            }
+			if (other.tag == "item") {
+				collectItem (other.GetComponent<Item> ());
+			} else if (other.tag == "spikes") {
+				die ();
+			} else if (other.tag == "portal") {
+				win ();
+			}
         }
 
         void OnTriggerExit(Collider other)
         {
             if (other.tag == "border")
             {
-                //TODO: respawn the character/reset the scene
                 die();
             }
         }
 
-        //Todo: Add respawn and sound
+        //Todo: Add respawn
         void die()
-        {
-            Debug.Log("Dead");
+		{
+			data.DeathCount++;
+			//Debug.Log("Death count: " + data.DeathCount);
 
             if (SoundManager.Instance != null)
             {
                 SoundManager.Instance.playSoundAt(1, gameObject.transform);
             }
 
+			//Reset Player Position and velocity
             int duration = ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
-            Destroy(gameObject);
+			playerObject.transform.position = startPosition;
+			Rigidbody playerBody = playerObject.GetComponent<Rigidbody> ();
+			playerBody.velocity = Vector3.zero;
+			playerBody.angularVelocity = Vector3.zero;
         }
+
+		void win(){
+			//reset the deathcount and update the time
+			data.DeathCount = 0;
+			//TODO: navigate to the next level	
+		}
 
         //Todo: Add special effects and sound
         void collectItem(Item item)
         {
-            Debug.Log("+" + item.ItemValue + " Points!");
+            //Debug.Log("+" + item.ItemValue + " Points!");
             data.Score += item.ItemValue;
             ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
 
@@ -104,26 +113,22 @@ namespace Academy.HoloToolkit.Unity
         void OnDestroy()
         {
             //Stores player data to the preferences
-            //PreferenceManager.WriteJsonToPreferences("player", data);
+			data.Timer = Time.time - startTime;
+            PreferenceManager.WriteJsonToPreferences("player", data);
         }
 
         // Use this for initialization
         void Start()
         {
             //TODO: Get PlayerName
+			//data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
+			//if (data == null) {
+				data = new PlayerData("Name");
+			//}
+			startTime = Time.time;
+			startPosition = playerObject.transform.position;
 
-            data = new PlayerData();
-            data.PlayerName = "Name";
-            data.Score = 0;
-
-
-            GestureManager.Instance.OverrideFocusedObject = this.gameObject;
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
+            //GestureManager.Instance.OverrideFocusedObject = this.gameObject;
 
         }
 

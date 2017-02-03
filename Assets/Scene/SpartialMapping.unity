@@ -325,9 +325,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f37651638aa137142a7b8d6c06c02fbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 07d04de789fbaca42a2d3891a49424ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StoredStabilitySamples: 60
+  PositionDropOffRadius: 0.02
+  DirectionDropOffRadius: 0.1
+  PositionStrength: 0.66
+  DirectionStrength: 0.83
+  StabilityAverageDistanceWeight: 2
+  StabilityVarianceWeight: 1
 --- !u!114 &45
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +343,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17fabcba988615b48b8ffe0ef37eda41, type: 3}
+  m_Script: {fileID: 11500000, guid: bea2fba33bb3b8f43b8b51bce5d7cf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxGazeDistance: 15
@@ -523,7 +530,7 @@ Prefab:
         type: 2}
       propertyPath: roomModel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 100008, guid: ca2674054c1854645a80e85e849097b9, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ed75ffdf9031c94e8bce4b3d17b9928, type: 2}
   m_IsPrefabParent: 0

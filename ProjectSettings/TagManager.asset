@@ -8,6 +8,7 @@ TagManager:
   - border
   - item
   - portal
+  - room
   layers:
   - Default
   - TransparentFX

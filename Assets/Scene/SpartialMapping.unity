@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 47}
   - component: {fileID: 46}
   - component: {fileID: 45}
-  - component: {fileID: 44}
+  - component: {fileID: 8}
   m_Layer: 31
   m_Name: Cursor
   m_TagString: Untagged
@@ -66,6 +66,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 6}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2664ef87ce168314b908b2c20a3444f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &10
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,24 +328,6 @@ LightmapSettings:
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
---- !u!114 &44
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 6}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d04de789fbaca42a2d3891a49424ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StoredStabilitySamples: 60
-  PositionDropOffRadius: 0.02
-  DirectionDropOffRadius: 0.1
-  PositionStrength: 0.66
-  DirectionStrength: 0.83
-  StabilityAverageDistanceWeight: 2
-  StabilityVarianceWeight: 1
 --- !u!114 &45
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +429,11 @@ Prefab:
         type: 2}
       propertyPath: drawPlanesMask
       value: -31
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011487022016, guid: a5bfcc12f0da80a4ba738ad168f94dbc,
+        type: 2}
+      propertyPath: minimumFloors
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5bfcc12f0da80a4ba738ad168f94dbc, type: 2}

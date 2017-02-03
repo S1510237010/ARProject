@@ -64,8 +64,6 @@ namespace Academy.HoloToolkit.Unity
         }
 
 		void win(){
-			//reset the deathcount and update the time
-			data.DeathCount = 0;
 			//navigates to the next level or the highscore view
 			if(!LevelManager.Instance.LoadNextLevel()){
 				NavigateToScene.GoToScene ("Highscore");

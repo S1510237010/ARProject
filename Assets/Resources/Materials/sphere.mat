@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: sphere
-  m_Shader: {fileID: 4800000, guid: a91d25e6937ec7247826070f77917445, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2ddbbc7f9edfdb44e81f558cd1fa145c, type: 3}
   m_ShaderKeywords: _EMISSION _LIGHTMAPPING_REALTIME _UVSEC_UV1
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1

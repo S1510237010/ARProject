@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HighscoreData : MonoBehaviour
+public class HighscoreManager: MonoBehaviour
 {
     private List<PlayerData> highscoreData;
     public GameObject highscoreItem;
@@ -60,7 +60,7 @@ public class HighscoreData : MonoBehaviour
             {
                 if (text.name == "Score")
                 {
-                    text.text = highscoreData[i].Score.ToString() + " |";
+					text.text = highscoreData[i].WeightedScore.ToString() + " |";
                 }
                 if (text.name == "Player Name")
                 {

@@ -15,7 +15,8 @@ public class HighscoreManager: MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        LoadData();
+        //LoadData();
+		LoadMockupData();
         PlayerData currentPlayerData = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
         AddItem(currentPlayerData);
         if (highscoreItem != null)
@@ -29,6 +30,17 @@ public class HighscoreManager: MonoBehaviour
     {
        storeData();
     }
+
+	private void LoadMockupData(){
+		highscoreData = new List<PlayerData> ();
+		System.Random rand = new System.Random ();
+		for (int i = 0; i < 5; i++) {
+			PlayerData data = new PlayerData("Player"+(i+1));
+			data.Score = rand.Next (1, 100) * 10;
+			data.DeathCount = rand.Next (0, 10);
+			AddItem (data);
+		}
+	}
 
     public void LoadData()
     {
@@ -53,14 +65,14 @@ public class HighscoreManager: MonoBehaviour
         while (i < ListSize && i < highscoreData.Count)
         {
             GameObject menuItem = Instantiate(highscoreItem);
-            menuItem.transform.parent = transform;
+			menuItem.transform.SetParent(transform, false);
             
             Text[] contentText = menuItem.GetComponentsInChildren<Text>();
             foreach (var text in contentText)
             {
                 if (text.name == "Score")
                 {
-					text.text = highscoreData[i].WeightedScore.ToString() + " |";
+					text.text = highscoreData[i].WeightedScore.ToString();
                 }
                 if (text.name == "Player Name")
                 {
@@ -80,7 +92,7 @@ public class HighscoreManager: MonoBehaviour
         {
             for (int i = 0; i < highscoreData.Count; i++)
             {
-                if (player.Score > highscoreData[i].Score)
+				if (player.WeightedScore > highscoreData[i].WeightedScore)
                 {
                     highscoreData.Insert(i, player);
                     inserted = true;

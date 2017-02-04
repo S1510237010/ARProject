@@ -11,7 +11,7 @@ public class InteractibleAction : MonoBehaviour
 
     public GameObject ObjectToDeactivate;
 
-    void PerformTagAlong()
+    public void PerformTagAlong()
     {
         if (ObjectToTagAlong == null)
         {
@@ -19,7 +19,7 @@ public class InteractibleAction : MonoBehaviour
         }
 
         // Recommend having only one tagalong.
-        GameObject existingTagAlong = GameObject.FindGameObjectWithTag("TagAlong");
+        GameObject existingTagAlong = GameObject.FindGameObjectWithTag("Level");
         if (existingTagAlong != null)
         {
             return;

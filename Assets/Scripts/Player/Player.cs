@@ -86,15 +86,21 @@ namespace Academy.HoloToolkit.Unity
 
         public void onRun()
         {
-            Transform TrCamera = Camera.main.transform;
+            
+            // Grab the current head transform and broadcast it to all the other users in the session
+            Transform headTransform = Camera.main.transform;
 
-            if (TrCamera.rotation.z < 0)
+            // Transform the head position and rotation into local space
+            Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
+            Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
+
+            if (headRotation.z < 0)
             {
                 //gameObject.GetComponent<Renderer>().material.color = Color.red;
 
                 playerObject.transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
             }
-            else if (TrCamera.rotation.z > 0)
+            else if (headRotation.z > 0)
             {
                 //gameObject.GetComponent<Renderer>().material.color = Color.green;
 
@@ -133,10 +139,6 @@ namespace Academy.HoloToolkit.Unity
 
         }
 
-        void OnSelect()
-        {
-            onJump();
-        }
 
     }
 }

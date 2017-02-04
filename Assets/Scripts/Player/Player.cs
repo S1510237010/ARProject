@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Academy.HoloToolkit.Unity;
 
 
-namespace Academy.HoloToolkit.Unity
-{
-    public class Player : MonoBehaviour
+public class Player : MonoBehaviour
     {
 		private Vector3 startPosition;
         private PlayerData data;
@@ -141,4 +140,4 @@ namespace Academy.HoloToolkit.Unity
 
 
     }
-}
+

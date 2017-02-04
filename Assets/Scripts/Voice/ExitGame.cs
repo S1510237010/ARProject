@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 
-public class StartGame : MonoBehaviour
+public class ExitGame : MonoBehaviour
 {
     KeywordRecognizer keywordRecognizer = null;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
@@ -11,10 +11,10 @@ public class StartGame : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        keywords.Add("Start Game", () =>
+        keywords.Add("Exit Game", () =>
         {
             // Call the OnReset method on every descendant object.
-            this.BroadcastMessage("onStart");
+            this.BroadcastMessage("onExit");
         });
 
         // Tell the KeywordRecognizer about our keywords.
@@ -34,11 +34,11 @@ public class StartGame : MonoBehaviour
         }
     }
 
-    void onStart()
+    void onExit()
     {
-        //TODO: Segue to Tutorial Level
-		//NavigateToScene.GoToScene("Highscore");
-        System.Diagnostics.Debug.WriteLine("DEBUG: You said - Start Game");
-        print("DEBUG: You said - Start Game");
+        //TODO: Close the program
+        Application.Quit();
+        System.Diagnostics.Debug.WriteLine("DEBUG: You said - Exit Game");
+        print("DEBUG: You said - Exit Game");
     }
 }

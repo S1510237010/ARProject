@@ -109,6 +109,7 @@ namespace Academy.HoloToolkit.Unity
         public void onJump()
         {
             playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 10, 0));
+            System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
         }
 
         void OnDestroy()

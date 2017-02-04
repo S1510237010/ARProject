@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEngine.VR.WSA.Input;
 
+
 namespace Academy.HoloToolkit.Unity
 {
     /// <summary>
@@ -49,10 +50,15 @@ namespace Academy.HoloToolkit.Unity
 
         private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
         {
-            if (focusedObject != null)
+            this.BroadcastMessage("onJump");
+            //GameObject player = FindObjectOfType<Player>();
+
+
+            /*if (focusedObject != null)
             {
-                focusedObject.SendMessage("OnSelect");
-            }
+                focusedObject.SendMessage("onJump");
+                System.Diagnostics.Debug.WriteLine("DEBUG: Tapped Event invoked!");
+            }*/
         }
 
         void LateUpdate()

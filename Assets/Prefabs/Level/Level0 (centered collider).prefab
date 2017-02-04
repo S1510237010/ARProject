@@ -353,6 +353,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4372541748261280}
+  - component: {fileID: 114661747800906796}
   m_Layer: 0
   m_Name: Level0 (centered collider)
   m_TagString: Untagged
@@ -1717,6 +1718,18 @@ MonoBehaviour:
   HologramCollection: {fileID: 0}
   MoveCollectionOnDismiss: 0
   FitboxMaterial: {fileID: 0}
+--- !u!114 &114661747800906796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546588789297760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2143884ca48d2b542bb76766b06167a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
 --- !u!114 &114711674402470916
 MonoBehaviour:
   m_ObjectHideFlags: 1

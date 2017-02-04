@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * This class handles the creation/destruction of levels and puts them at it's own position/rotation
+ */
 public class LevelManager : MonoBehaviour {
 	public GameObject[] Levels;
-	public Vector3 levelPosition;
+	//public Vector3 levelPosition;
 	private int currentLevel = 0;
 	public int CurrentLevel{
 		get{ return currentLevel; }
@@ -32,7 +35,9 @@ public class LevelManager : MonoBehaviour {
 			}
 			//TODO: place level correctly
 			GameObject newLevel = Instantiate<GameObject> (Levels [currentLevel]);
-			newLevel.transform.position = levelPosition;
+			//newLevel.transform.position = levelPosition;
+			newLevel.transform.position = gameObject.transform.position;
+			newLevel.transform.rotation = gameObject.transform.rotation;
 			currentLevel++;
 			return true;
 		} else {

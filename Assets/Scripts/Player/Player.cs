@@ -11,8 +11,10 @@ namespace Academy.HoloToolkit.Unity
 		private Vector3 startPosition;
         private PlayerData data;
         public GameObject playerObject;
-        public float speed = 0.001f;
-		private float startTime;
+        public float speed = 0.1f;
+        float movement = 0.0f;
+        private float startTime;
+        bool alive;
 
         public String PlayerName
         {
@@ -47,6 +49,7 @@ namespace Academy.HoloToolkit.Unity
         //Todo: Add respawn
         void die()
 		{
+            alive = false;
 			data.DeathCount++;
 			//Debug.Log("Death count: " + data.DeathCount);
 
@@ -61,9 +64,10 @@ namespace Academy.HoloToolkit.Unity
 			Rigidbody playerBody = playerObject.GetComponent<Rigidbody> ();
 			playerBody.velocity = Vector3.zero;
 			playerBody.angularVelocity = Vector3.zero;
+            
         }
 
-		void win(){
+		void win() {
 			//navigates to the next level or the highscore view
 			if(!LevelManager.Instance.LoadNextLevel()){
 				NavigateToScene.GoToScene ("Highscore");
@@ -94,22 +98,18 @@ namespace Academy.HoloToolkit.Unity
             Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
             Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
 
-            if (headRotation.z < 0)
+            if (alive)
             {
-                //gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-                playerObject.transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
-            }
-            else if (headRotation.z > 0)
-            {
-                //gameObject.GetComponent<Renderer>().material.color = Color.green;
-
-                playerObject.transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+                movement = speed * headRotation.z;
             }
             else
             {
-                //gameObject.GetComponent<Renderer>().material.color = Color.white;
+                movement = 0;
             }
+
+            playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
+            //playerObject.transform.position = new Vector3(transform.position.x - movement, transform.position.y, transform.position.z);
+           
         }
 
         public void onJump()
@@ -134,9 +134,33 @@ namespace Academy.HoloToolkit.Unity
 			//}
 			startTime = Time.time;
 			startPosition = playerObject.transform.position;
-
+            alive = true;
             //GestureManager.Instance.OverrideFocusedObject = this.gameObject;
 
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (alive)
+            {
+                onRun();
+            }
+            else
+            {
+                // Grab the current head transform and broadcast it to all the other users in the session
+                Transform headTransform = Camera.main.transform;
+
+                // Transform the head position and rotation into local space
+                Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
+                Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
+
+                if (headRotation.z > -1 || headRotation.z < 1)
+                {
+                    alive = true;
+                }
+
+            }
         }
 
 

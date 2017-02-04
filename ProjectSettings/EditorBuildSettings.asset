@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scene/ParticleTest.unity
+    path: Assets/Scene/Lisa Test/ParticleTest.unity
   - enabled: 0
     path: Assets/Scene/anna.unity
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scene/Level/Level0.unity
   - enabled: 0
     path: Assets/Scene/Highscore.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/VoiceCommandsTest.unity

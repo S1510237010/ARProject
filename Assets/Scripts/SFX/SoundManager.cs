@@ -6,7 +6,12 @@ public class SoundManager : MonoBehaviour
 {
 	private static SoundManager instance;
 	public static SoundManager Instance{
-		get{ return instance; }
+		get{ 
+			if (instance == null) {
+				instance = FindObjectOfType<SoundManager> ();
+			}
+			return instance;
+		}
 	}
 
     public AudioClip[] SoundClips;
@@ -68,7 +73,6 @@ public class SoundManager : MonoBehaviour
 	}
 
 	void Start(){
-		instance = this;
 		if(BackgroundSource!=null){
 			BackgroundSource.volume = BackgroundVolume;
 		}

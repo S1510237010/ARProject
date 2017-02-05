@@ -157,10 +157,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         //TODO: Get PlayerName
-        //data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
-        //if (data == null) {
-        data = new PlayerData("Name");
-        //}
+        data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
+        if (data == null) {
+        	data = new PlayerData();
+        }
 		startTime = Time.realtimeSinceStartup;
         startPosition = playerObject.transform.position;
 		startRotation = playerObject.transform.rotation;
@@ -212,11 +212,6 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
-
-    void Awake()
-    {
-        speed = 0; 
-    }
 
 }
 

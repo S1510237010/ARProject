@@ -9,13 +9,21 @@ public class PlayerData {
 	public int DeathCount;
     public int Score;
 	public float Timer;
+	private DateTime date;
+
 	public int WeightedScore{
 		get{ 
 			return (int) (Score / ((DeathCount+1.0)/2.0));
 		}
 	}
-	public PlayerData(string name){
-		PlayerName = name;
+
+	public String Date{
+		get { return String.Format ("{0:dd.MM.yyyy}", date); }
+	}
+
+	public PlayerData(){
+		date = DateTime.Now;
+		PlayerName = "";
 		Score = 0;
 		DeathCount = 0;
 		Timer = 0;

@@ -29,12 +29,13 @@ public class LevelManager : MonoBehaviour {
 
     void Start()
     {
-        //DisplayLevel();
+		PlayerPrefs.DeleteKey ("player");
     }
 
 	void Update(){
 		if (!GetComponent<Placeable> ().IsPlacing && !isInitialized) {
 			DisplayLevel ();
+			isInitialized = true;
 		}
 	}
 

@@ -8,13 +8,14 @@ using Academy.HoloToolkit.Unity;
 public class Player : MonoBehaviour
 {
     private Vector3 startPosition;
+	private Quaternion startRotation;
     private PlayerData data;
     public GameObject playerObject;
     public float speed = 0.1f;
     public float jumpForce = 0.02f;
     float movement = 0.0f;
     private float startTime;
-    bool alive;
+	private float previousRotation = 0;
 
     public String PlayerName
     {
@@ -24,8 +25,23 @@ public class Player : MonoBehaviour
 
     public int Score
     {
-        get { return data.WeightedScore; }
+		get { return data.Score; }
     }
+
+	public float PlayerTimer
+	{
+		get { return Time.realtimeSinceStartup - startTime; }
+	}
+
+	public int WeightedScore
+	{
+		get { return data.WeightedScore; }
+	}
+
+	public int Deaths
+	{
+		get { return data.DeathCount; }
+	}
 
     void OnTriggerEnter(Collider other)
     {
@@ -55,7 +71,6 @@ public class Player : MonoBehaviour
     void die()
     {
         //Debug.Log ("Player Dead!");
-        alive = false;
         data.DeathCount++;
         //Debug.Log("Death count: " + data.DeathCount);
 
@@ -65,8 +80,9 @@ public class Player : MonoBehaviour
         }
 
         //Reset Player Position and velocity
-        int duration = ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+        ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
         playerObject.transform.position = startPosition;
+		playerObject.transform.rotation = startRotation;
         Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
         playerBody.velocity = Vector3.zero;
         playerBody.angularVelocity = Vector3.zero;
@@ -113,7 +129,7 @@ public class Player : MonoBehaviour
 
             Debug.Log("DEBUG: Head Rotation = " + headRotation.z + "!");
             Debug.Log("DEBUG: Movement = " + movement + "!");
-            //playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
+			//playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
 
         }
         else
@@ -128,7 +144,10 @@ public class Player : MonoBehaviour
 
     public void onJump()
     {
-        playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0.001f, 0));
+		Transform headTransform = Camera.main.transform;
+		Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
+		Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
+		playerObject.GetComponent<Rigidbody>().AddForce(0, jumpForce, movement);
         //System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
         //Debug.Log("Jump!");
     }
@@ -136,7 +155,7 @@ public class Player : MonoBehaviour
     void OnDestroy()
     {
         //Stores player data to the preferences
-        data.Timer = Time.time - startTime;
+		data.Timer = PlayerTimer;
         PreferenceManager.WriteJsonToPreferences("player", data);
     }
 
@@ -148,9 +167,9 @@ public class Player : MonoBehaviour
         //if (data == null) {
         data = new PlayerData("Name");
         //}
-        startTime = Time.time;
+		startTime = Time.realtimeSinceStartup;
         startPosition = playerObject.transform.position;
-        alive = true;
+		startRotation = playerObject.transform.rotation;
         //GestureManager.Instance.OverrideFocusedObject = this.gameObject;
 
     }
@@ -158,7 +177,29 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         run();
+
     }
+
+	public Boolean debugMode;
+	float testRotation = 0;
+	void Update(){
+		if (debugMode) {
+			if (Input.GetKeyDown(KeyCode.W)) {
+				onJump ();
+				//Debug.Log ("Jump");
+			}
+			if (Input.GetKey(KeyCode.A)) {
+				testRotation++;
+				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
+				//Debug.Log ("Left");
+			}
+			if (Input.GetKey(KeyCode.D)) {
+				testRotation--;
+				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
+				//Debug.Log ("Right");
+			}
+		}
+	}
 
 }
 

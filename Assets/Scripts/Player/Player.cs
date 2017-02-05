@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     //Todo: Add respawn
     void die()
     {
-        //Debug.Log ("Player Dead!");
+        Debug.Log ("Player Dead!");
         data.DeathCount++;
         //Debug.Log("Death count: " + data.DeathCount);
 

@@ -46,6 +46,7 @@ public class LevelManager : MonoBehaviour {
 		GameObject newLevel = Instantiate<GameObject> (Levels [currentLevel]);
 
 		newLevel.transform.SetParent(gameObject.transform, false);
+        newLevel.transform.rotation.Set(0, 0, 0, 0);
 		//Set the new Player for the sound manager
 		Player player = gameObject.GetComponentInChildren<Player>();
 		if (player != null) {

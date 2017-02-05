@@ -53,7 +53,7 @@ namespace Academy.HoloToolkit.Unity
             Debug.Log("Tapped Event!!");
             if (focusedObject != null)
             {
-                focusedObject.SendMessage("onJump");
+                focusedObject.SendMessage("OnSelect");
             }
             else
             {
@@ -84,6 +84,7 @@ namespace Academy.HoloToolkit.Unity
             }
             else
             {
+               // Debug.Log("Overwrite focused GameObject");
                 // If our gaze doesn't hit a hologram, set the focused object to null or override focused object.
                 focusedObject = OverrideFocusedObject;
             }

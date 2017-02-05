@@ -50,16 +50,20 @@ namespace Academy.HoloToolkit.Unity
 
         private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
         {
-<<<<<<< HEAD
             Debug.Log("Tapped Event!!");
             if (focusedObject != null)
-=======
-            this.BroadcastMessage("onJump");
+            {
+                focusedObject.SendMessage("onJump");
+            }
+            else
+            {
+                this.BroadcastMessage("onJump");
+            }
+            
             //GameObject player = FindObjectOfType<Player>();
 
 
             /*if (focusedObject != null)
->>>>>>> f9fb1ea71956b5c63f586cfc10eab70824372485
             {
                 focusedObject.SendMessage("onJump");
                 System.Diagnostics.Debug.WriteLine("DEBUG: Tapped Event invoked!");

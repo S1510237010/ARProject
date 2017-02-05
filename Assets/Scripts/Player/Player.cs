@@ -95,7 +95,10 @@ public class Player : MonoBehaviour
         }
 
         //Reset Player Position and velocity
-        ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+		if(gameObject.transform.position != startPosition){
+			ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+		}
+
         playerObject.transform.position = startPosition;
 		playerObject.transform.rotation = startRotation;
         Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
@@ -106,6 +109,7 @@ public class Player : MonoBehaviour
 
     void win()
     {
+		data.Score += (LevelManager.Instance.CurrentLevel+1) * 100;
         //navigates to the next level or the highscore view
         if (!LevelManager.Instance.LoadNextLevel())
         {
@@ -137,7 +141,7 @@ public class Player : MonoBehaviour
     public void onJump()
     {
 		isJumping = true;
-		playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*10), jumpForce, 0);
+		playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*15), jumpForce, 0);
 		//System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
         //Debug.Log("Jump!");
     }
@@ -173,7 +177,7 @@ public class Player : MonoBehaviour
 		if (isJumping) {
 			if (playerObject.GetComponent<Rigidbody> ().velocity.y > 0) {
 				//Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
-				playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*20), 0, 0);
+				playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*25), 0, 0);
 
 			} else {
 				isJumping = false;

@@ -7,6 +7,7 @@ using UnityEngine;
  */
 public class LevelManager : MonoBehaviour {
 	public GameObject[] Levels;
+    public bool loaded = false;
 	//public Vector3 levelPosition;
 	private int currentLevel = 0;
 	public int CurrentLevel{
@@ -26,10 +27,15 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-	void Start(){
-		DisplayLevel ();
-		//StartCoroutine (Test());
-	}
+	void Update(){
+        if (!gameObject.GetComponent<Placeable>().IsPlacing && !loaded)
+        {
+            DisplayLevel();
+            loaded = true;
+            //StartCoroutine (Test());
+        }
+
+    }
 
 	IEnumerator Test(){
 		yield return new WaitForSeconds(5);

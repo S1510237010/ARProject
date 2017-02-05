@@ -4,7 +4,6 @@
 using UnityEngine;
 using UnityEngine.VR.WSA.Input;
 
-
 namespace Academy.HoloToolkit.Unity
 {
     /// <summary>
@@ -12,8 +11,8 @@ namespace Academy.HoloToolkit.Unity
     /// When a tap gesture is detected, GestureManager uses GazeManager to find the game object.
     /// GestureManager then sends a message to that game object.
     /// </summary>
-    [RequireComponent(typeof(GazeManager))]
-    public partial class GestureManager : Singleton<GestureManager>
+    [RequireComponent(typeof(GazeManagerSp))]
+    public partial class GestureManagerSp : Singleton<GestureManagerSp>
     {
         /// <summary>
         /// To select even when a hologram is not being gazed at,
@@ -50,37 +49,23 @@ namespace Academy.HoloToolkit.Unity
 
         private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
         {
-            Debug.Log("Tapped Event!!");
             if (focusedObject != null)
             {
-                focusedObject.SendMessage("onJump");
+                focusedObject.SendMessage("OnSelect");
             }
-            else
-            {
-                this.BroadcastMessage("onJump");
-            }
-            
-            //GameObject player = FindObjectOfType<Player>();
-
-
-            /*if (focusedObject != null)
-            {
-                focusedObject.SendMessage("onJump");
-                System.Diagnostics.Debug.WriteLine("DEBUG: Tapped Event invoked!");
-            }*/
         }
 
         void LateUpdate()
         {
             GameObject oldFocusedObject = focusedObject;
 
-            if (GazeManager.Instance.Hit &&
+            if (GazeManagerSp.Instance.Hit &&
                 OverrideFocusedObject == null &&
-                GazeManager.Instance.HitInfo.collider != null)
+                GazeManagerSp.Instance.HitInfo.collider != null)
             {
                 // If gaze hits a hologram, set the focused object to that game object.
                 // Also if the caller has not decided to override the focused object.
-                focusedObject = GazeManager.Instance.HitInfo.collider.gameObject;
+                focusedObject = GazeManagerSp.Instance.HitInfo.collider.gameObject;
             }
             else
             {

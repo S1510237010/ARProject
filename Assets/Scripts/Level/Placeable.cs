@@ -117,6 +117,8 @@ public class Placeable : MonoBehaviour
         shadowAsset = GameObject.CreatePrimitive(PrimitiveType.Quad);
         shadowAsset.transform.parent = gameObject.transform;
         shadowAsset.SetActive(false);
+
+        OnPlacementStart();
     }
 
     /// <summary>
@@ -126,6 +128,8 @@ public class Placeable : MonoBehaviour
     public void OnSelect()
     {
         /* TODO: 4.a CODE ALONG 4.a */
+
+        Debug.Log("OnSelect");
 
         if (!IsPlacing)
         {
@@ -324,6 +328,7 @@ public class Placeable : MonoBehaviour
             ChildrenToHide[i].SetActive(false);
         }
 
+        Debug.Log("OnPlacementStart");
         // Tell the gesture manager that it is to assume
         // all input is to be given to this object.
         GestureManager.Instance.OverrideFocusedObject = gameObject;

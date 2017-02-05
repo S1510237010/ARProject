@@ -85,46 +85,49 @@ public class Player : MonoBehaviour
     //Todo: Add respawn
     void die()
     {
-        Debug.Log ("Player Dead!");
         data.DeathCount++;
-        //Debug.Log("Death count: " + data.DeathCount);
-
-        if (SoundManager.Instance != null)
+        if (data.DeathCount == maxLives)
         {
-            SoundManager.Instance.playSoundAt(1, gameObject.transform);
+            NavigateToScene.GoToScene("Highscore");
         }
+        else {
 
-        //Reset Player Position and velocity
-        //if(gameObject.transform.position != startPosition){
-        //	ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
-        //}
-
-        //playerObject.transform.position = startPosition;
-        GameObject starter = null;
-        GameObject[] all = FindObjectsOfType<GameObject>();
-
-        for (int i = 0; i < all.Length; i++)
-        {
-            if (all[i].tag == "startPosition")
+            //Reset Player Position and velocity
+            if (gameObject.transform.position != startPosition)
             {
-                starter = all[i];
+                ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
             }
-        }
 
-        if (starter != null)
-        {
-            playerObject.transform.position = starter.transform.position;
-        }
-        else
-        {
-            playerObject.transform.position = startPosition;
-        }
-       
-		playerObject.transform.rotation = startRotation;
-        Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
-        playerBody.velocity = Vector3.zero;
-        playerBody.angularVelocity = Vector3.zero;
+            //playerObject.transform.position = startPosition;
+            GameObject starter = null;
+            GameObject[] all = FindObjectsOfType<GameObject>();
 
+            for (int i = 0; i < all.Length; i++)
+            {
+                if (all[i].tag == "startPosition")
+                {
+                    starter = all[i];
+                }
+            }
+            if (starter != null)
+            {
+                playerObject.transform.position = starter.transform.position;
+            }
+            else
+            {
+                playerObject.transform.position = startPosition;
+            }
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.playSoundAt(1, gameObject.transform);
+            }
+
+            
+            playerObject.transform.rotation = startRotation;
+            Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
+            playerBody.velocity = Vector3.zero;
+            playerBody.angularVelocity = Vector3.zero;
+        }
     }
 
     void win()
@@ -140,7 +143,6 @@ public class Player : MonoBehaviour
     //Todo: Add special effects and sound
     void collectItem(Item item)
     {
-        //Debug.Log("+" + item.ItemValue + " Points!");
         data.Score += item.ItemValue;
         ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
 
@@ -173,19 +175,33 @@ public class Player : MonoBehaviour
 
         if (starter != null && reference != null)
         {
-            float x = Math.Abs(starter.transform.position.x - reference.transform.position.x);
-            float z = Math.Abs(starter.transform.position.z - reference.transform.position.z);
+            float x = starter.transform.position.x - reference.transform.position.x;
+            float z = starter.transform.position.z - reference.transform.position.z;
 
-            if (x > z)
+            if (Math.Abs(x) > Math.Abs(z))
             {
                 //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
-                playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
+                if (x < 0)
+                {
+                    playerObject.transform.position = new Vector3(transform.position.x + Movement, transform.position.y, transform.position.z);
+                }
+                else
+                {
+                    playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
+                }
 
             }
             else
             {
+                if (z < 0)
+                {
+                    playerObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + Movement);
+                }
+                else
+                {
+                    playerObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - Movement);
+                }
                 //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
-                playerObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - Movement);
 
             }
 
@@ -200,12 +216,13 @@ public class Player : MonoBehaviour
 
     }
 
-    public void onJump()
+    public void jump()
     {
-		isJumping = true;
-		playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*15), jumpForce, 0);
-		//System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
-        //Debug.Log("Jump!");
+        if(!isJumping)
+        {
+            isJumping = true;
+            playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)), jumpForce, 0);
+        }
     }
 
     void OnDestroy()
@@ -219,73 +236,55 @@ public class Player : MonoBehaviour
     void Start()
     {
         //TODO: Get PlayerName
-        //data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
-        //if (data == null) {
-        data = new PlayerData("Name");
-        //}
+        data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
+        if (data == null) {
+        	data = new PlayerData();
+        }
 		startTime = Time.realtimeSinceStartup;
         startPosition = playerObject.transform.position;
 		startRotation = playerObject.transform.rotation;
-        //GestureManager.Instance.OverrideFocusedObject = this.gameObject;
-
     }
 
 	public Boolean debugMode;
 	float testRotation = 0;
 	float previousMovement = 0;
-    void Update()
-    {
 
-        //Debug.Log ("Player Rotation: " + transform.rotation);
-        if (isJumping)
-        {
-            if (playerObject.GetComponent<Rigidbody>().velocity.y > 0)
-            {
-                //Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
-                playerObject.GetComponent<Rigidbody>().AddForce(-(Movement / speed * 25), 0, 0);
+	void Update(){
 
+		if (isJumping) {
+            if (playerObject.GetComponent<Rigidbody>().velocity.y > 0) {
+                playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 25)), 0, 0);
             }
-            else
-            {
+
+            else if (playerObject.GetComponent<Rigidbody>().velocity.y == 0) {
                 isJumping = false;
                 Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
                 playerBody.velocity = Vector3.zero;
                 playerBody.angularVelocity = Vector3.zero;
             }
-            Debug.Log("Camera Rotation: " + Camera.main.transform.rotation.z);
-        }
-        else
-        {
-            run();
-        }
 
-        if (debugMode)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                onJump();
-                //Debug.Log ("Jump");
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                testRotation++;
-                Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
-                //Debug.Log ("Left");
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                testRotation = 0;
-                Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
-                //Debug.Log ("Right");
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                testRotation--;
-                Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
-                //Debug.Log ("Right");
-            }
-        }
-    }
+		} else {
+			run();
+		}
+
+		if (debugMode) {
+			if (Input.GetKeyDown(KeyCode.W)) {
+				jump();
+			}
+			if (Input.GetKey(KeyCode.A)) {
+				testRotation++;
+				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
+			}
+			if (Input.GetKey(KeyCode.S)) {
+				testRotation = 0;
+				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
+			}
+			if (Input.GetKey(KeyCode.D)) {
+				testRotation--;
+				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
+			}
+		}
+	}
 
 }
 

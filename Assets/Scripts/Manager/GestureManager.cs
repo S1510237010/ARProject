@@ -57,7 +57,8 @@ namespace Academy.HoloToolkit.Unity
             }
             else
             {
-                this.BroadcastMessage("onJump");
+                Debug.Log("JUMP!!!!");
+                GameObject.Find("Player").SendMessage("jump");
             }
             
             //GameObject player = FindObjectOfType<Player>();

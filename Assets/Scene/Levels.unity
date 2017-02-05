@@ -91,6 +91,28 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &87379939 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1126123841859064, guid: 786d189acdae46d4dadf0ccde7fcb1da,
+    type: 2}
+  m_PrefabInternal: {fileID: 1853976937}
+--- !u!114 &87379940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 87379939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9928a5c6ca5439548ba3c740bf929eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitScanningByTime: 1
+  scanTime: 30
+  defaultMaterial: {fileID: 2100000, guid: d698790d3facd3d4289a13fa1243030a, type: 2}
+  secondaryMaterial: {fileID: 2100000, guid: d698790d3facd3d4289a13fa1243030a, type: 2}
+  minimumFloors: 1
+  minimumWalls: 1
 --- !u!1001 &227595104
 Prefab:
   m_ObjectHideFlags: 0
@@ -534,7 +556,7 @@ Prefab:
         type: 2}
       propertyPath: roomModel
       value: 
-      objectReference: {fileID: 100008, guid: ca2674054c1854645a80e85e849097b9, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 114277778184841020, guid: ed3487c9a093a144e88ad1ad2e5c2562,
         type: 2}
       propertyPath: castShadows
@@ -587,7 +609,8 @@ Prefab:
       propertyPath: drawPlanesMask
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114756533296367516, guid: 786d189acdae46d4dadf0ccde7fcb1da, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 786d189acdae46d4dadf0ccde7fcb1da, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1960102520

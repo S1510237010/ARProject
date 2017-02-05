@@ -41,7 +41,8 @@ public class LevelManager : MonoBehaviour {
             Debug.Log(gameObject.transform.rotation.y);
 
         }
-	}
+		PlayerPrefs.DeleteKey ("player");
+    }
 
 	IEnumerator Test(){
 		yield return new WaitForSeconds(5);

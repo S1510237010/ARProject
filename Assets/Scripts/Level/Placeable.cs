@@ -95,6 +95,8 @@ public class Placeable : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        //Debug.Log("Awake");
+        
         targetPosition = gameObject.transform.position;
 
         // Get the object's collider.
@@ -180,6 +182,8 @@ public class Placeable : MonoBehaviour
                     ChildrenToHide[i].SetActive(true);
                 }
             }
+            Destroy(gameObject.GetComponent<Rigidbody>());
+            Destroy(gameObject.GetComponent("Placeable"));
         }
     }
 
@@ -316,6 +320,7 @@ public class Placeable : MonoBehaviour
     /// </summary>
     public void OnPlacementStart()
     {
+        
         // If we are managing the collider, enable it. 
         if (managingBoxCollider)
         {
@@ -328,7 +333,7 @@ public class Placeable : MonoBehaviour
             ChildrenToHide[i].SetActive(false);
         }
 
-        Debug.Log("OnPlacementStart");
+        //Debug.Log("OnPlacementStart");
         // Tell the gesture manager that it is to assume
         // all input is to be given to this object.
         GestureManager.Instance.OverrideFocusedObject = gameObject;
@@ -375,6 +380,7 @@ public class Placeable : MonoBehaviour
 
         // Exit placement mode.
         IsPlacing = false;
+        gameObject.transform.rotation.Set(0, 0, 0, 0);
     }
 
     /// <summary>
@@ -389,7 +395,7 @@ public class Placeable : MonoBehaviour
         Vector3 moveTo = gameObject.transform.position;
         Vector3 surfaceNormal = Vector3.zero;
         RaycastHit hitInfo;
-
+        
         bool hit = Physics.Raycast(Camera.main.transform.position,
                                 Camera.main.transform.forward,
                                 out hitInfo,
@@ -427,6 +433,7 @@ public class Placeable : MonoBehaviour
         // We are using the return value from Physics.Raycast to instruct
         // the OrientObject function to align to the vertical surface if appropriate.
         OrientObject(hit, surfaceNormal);
+        gameObject.transform.rotation.Set(0, 0, 0, 0);
     }
 
     /// <summary>

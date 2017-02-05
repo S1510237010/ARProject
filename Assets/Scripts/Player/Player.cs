@@ -159,7 +159,11 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        data = new PlayerData("Name");
+        //TODO: Get PlayerName
+        data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
+        if (data == null) {
+        	data = new PlayerData();
+        }
 		startTime = Time.realtimeSinceStartup;
         startPosition = playerObject.transform.position;
 		startRotation = playerObject.transform.rotation;

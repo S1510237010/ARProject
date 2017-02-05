@@ -35,7 +35,7 @@ public class HighscoreManager: MonoBehaviour
 		highscoreData = new List<PlayerData> ();
 		System.Random rand = new System.Random ();
 		for (int i = 0; i < 5; i++) {
-			PlayerData data = new PlayerData("Player"+(i+1));
+			PlayerData data = new PlayerData();
 			data.Score = rand.Next (1, 100) * 10;
 			data.DeathCount = rand.Next (0, 10);
 			AddItem (data);
@@ -78,6 +78,9 @@ public class HighscoreManager: MonoBehaviour
                 {
                     text.text = highscoreData[i].PlayerName;
                 }
+				if (text.name == "Date") {
+					text.text = highscoreData[i].Date;
+				}
             }
             Debug.Log("Initialized: " + highscoreData[i].PlayerName);
 

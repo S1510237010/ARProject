@@ -131,16 +131,15 @@ public class Placeable : MonoBehaviour
     {
         /* TODO: 4.a CODE ALONG 4.a */
 
-        Debug.Log("OnSelect");
-
-        if (!IsPlacing)
-        {
-            OnPlacementStart();
-        }
-        else
+        if (IsPlacing)
         {
             OnPlacementStop();
         }
+        else
+        {
+            Destroy(gameObject.GetComponent<Placeable>());
+        }
+        
     }
 
     /// <summary>
@@ -379,9 +378,6 @@ public class Placeable : MonoBehaviour
 
         // Exit placement mode.
         IsPlacing = false;
-        Player player = gameObject.GetComponentInChildren<Player>();
-        player.enabled = true;
-        Destroy(gameObject.GetComponent<Placeable>());
     }
 
     /// <summary>

@@ -7,11 +7,11 @@ using Academy.HoloToolkit.Unity;
 
 public class Player : MonoBehaviour
 {
-    private Vector3 startPosition;
+    public Vector3 startPosition;
 	private Quaternion startRotation;
     private PlayerData data;
     public GameObject playerObject;
-	public int maxLives = 5;
+    public int maxLives = 5;
 
     public float speed = 0.1f;
     public float jumpForce = 0.02f;
@@ -95,11 +95,31 @@ public class Player : MonoBehaviour
         }
 
         //Reset Player Position and velocity
-		if(gameObject.transform.position != startPosition){
-			ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
-		}
+        //if(gameObject.transform.position != startPosition){
+        //	ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+        //}
 
-        playerObject.transform.position = startPosition;
+        //playerObject.transform.position = startPosition;
+        GameObject starter = null;
+        GameObject[] all = FindObjectsOfType<GameObject>();
+
+        for (int i = 0; i < all.Length; i++)
+        {
+            if (all[i].tag == "startPosition")
+            {
+                starter = all[i];
+            }
+        }
+
+        if (starter != null)
+        {
+            playerObject.transform.position = starter.transform.position;
+        }
+        else
+        {
+            playerObject.transform.position = startPosition;
+        }
+       
 		playerObject.transform.rotation = startRotation;
         Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
         playerBody.velocity = Vector3.zero;
@@ -133,8 +153,50 @@ public class Player : MonoBehaviour
 
     public void run()
     {
+
+        GameObject starter = null, reference = null;
+
+        GameObject[] all = FindObjectsOfType<GameObject>();
+
+        for (int i = 0; i < all.Length; i++)
+        {
+            if (all[i].tag == "startPosition")
+            {
+                starter = all[i];
+            }
+            if (all[i].tag == "referencePosition")
+            {
+                reference = all[i];
+            }
+        }
+
+
+        if (starter != null && reference != null)
+        {
+            float x = Math.Abs(starter.transform.position.x - reference.transform.position.x);
+            float z = Math.Abs(starter.transform.position.z - reference.transform.position.z);
+
+            if (x > z)
+            {
+                //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
+                playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
+
+            }
+            else
+            {
+                //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
+                playerObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - Movement);
+
+            }
+
+        }
+        else
+        {
+            Debug.Log("SOMETHING IS NULL");
+        }
+
+
         //playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
-		playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
 
     }
 
@@ -171,51 +233,58 @@ public class Player : MonoBehaviour
 	public Boolean debugMode;
 	float testRotation = 0;
 	float previousMovement = 0;
-	void Update(){
-
-		//Debug.Log ("Player Rotation: " + transform.rotation);
-		if (isJumping) {
-			if (playerObject.GetComponent<Rigidbody> ().velocity.y > 0) {
-				//Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
-				playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*25), 0, 0);
-
-			} else {
-				isJumping = false;
-				Rigidbody playerBody = playerObject.GetComponent<Rigidbody> ();
-				playerBody.velocity = Vector3.zero;
-				playerBody.angularVelocity = Vector3.zero;
-			}
-			Debug.Log ("Camera Rotation: " + Camera.main.transform.rotation.z);
-		} else {
-			run();
-		}
-
-		if (debugMode) {
-			if (Input.GetKeyDown(KeyCode.W)) {
-				onJump ();
-				//Debug.Log ("Jump");
-			}
-			if (Input.GetKey(KeyCode.A)) {
-				testRotation++;
-				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
-				//Debug.Log ("Left");
-			}
-			if (Input.GetKey(KeyCode.S)) {
-				testRotation = 0;
-				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
-				//Debug.Log ("Right");
-			}
-			if (Input.GetKey(KeyCode.D)) {
-				testRotation--;
-				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
-				//Debug.Log ("Right");
-			}
-		}
-	}
-
-    void Awake()
+    void Update()
     {
-        speed = 0; 
+
+        //Debug.Log ("Player Rotation: " + transform.rotation);
+        if (isJumping)
+        {
+            if (playerObject.GetComponent<Rigidbody>().velocity.y > 0)
+            {
+                //Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
+                playerObject.GetComponent<Rigidbody>().AddForce(-(Movement / speed * 25), 0, 0);
+
+            }
+            else
+            {
+                isJumping = false;
+                Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
+                playerBody.velocity = Vector3.zero;
+                playerBody.angularVelocity = Vector3.zero;
+            }
+            Debug.Log("Camera Rotation: " + Camera.main.transform.rotation.z);
+        }
+        else
+        {
+            run();
+        }
+
+        if (debugMode)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                onJump();
+                //Debug.Log ("Jump");
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                testRotation++;
+                Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
+                //Debug.Log ("Left");
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                testRotation = 0;
+                Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
+                //Debug.Log ("Right");
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                testRotation--;
+                Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
+                //Debug.Log ("Right");
+            }
+        }
     }
 
 }

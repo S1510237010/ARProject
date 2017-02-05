@@ -9,6 +9,8 @@ TagManager:
   - item
   - portal
   - room
+  - startPosition
+  - referencePosition
   layers:
   - Default
   - TransparentFX

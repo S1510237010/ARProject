@@ -7,11 +7,12 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Platz
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
+  m_Shader: {fileID: 4800000, guid: ecabb61ab18b3d84598dc212c87c27d5, type: 3}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _USECOLOR_ON _USEMAINTEX_ON
   m_LightmapFlags: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -46,6 +47,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _EmissionTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
@@ -74,6 +81,12 @@ Material:
         name: _BumpScale
       second: 1
     - first:
+        name: _ColorWriteMask
+      second: 15
+    - first:
+        name: _Cull
+      second: 2
+    - first:
         name: _Cutoff
       second: 0.5
     - first:
@@ -81,7 +94,7 @@ Material:
       second: 1
     - first:
         name: _DstBlend
-      second: 0
+      second: 10
     - first:
         name: _GlossMapScale
       second: 1
@@ -96,7 +109,7 @@ Material:
       second: 0
     - first:
         name: _Mode
-      second: 0
+      second: 3
     - first:
         name: _OcclusionStrength
       second: 1
@@ -116,12 +129,27 @@ Material:
         name: _UVSec
       second: 0
     - first:
-        name: _ZWrite
+        name: _UseBumpMap
+      second: 0
+    - first:
+        name: _UseColor
       second: 1
+    - first:
+        name: _UseEmissionTex
+      second: 0
+    - first:
+        name: _UseMainTex
+      second: 1
+    - first:
+        name: _ZTest
+      second: 4
+    - first:
+        name: _ZWrite
+      second: 0
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.19999993, g: 1, b: 0, a: 1}
+      second: {r: 0.19999993, g: 1, b: 0, a: 0.559}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}

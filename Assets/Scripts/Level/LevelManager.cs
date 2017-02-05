@@ -7,6 +7,7 @@ using UnityEngine;
  */
 public class LevelManager : MonoBehaviour {
 	public GameObject[] Levels;
+    private GameObject levelObject;
 	private bool isInitialized = false;
 	//public Vector3 levelPosition;
 	private int currentLevel = 0;
@@ -29,13 +30,17 @@ public class LevelManager : MonoBehaviour {
 
     void Start()
     {
-        //DisplayLevel();
+        DisplayLevel();
     }
 
 	void Update(){
-		if (!GetComponent<Placeable> ().IsPlacing && !isInitialized) {
-			DisplayLevel ();
-		}
+		if (!levelObject.activeInHierarchy && !gameObject.GetComponent<Placeable>().IsPlacing) {
+            levelObject.SetActive(true);
+            Debug.Log("SET ACTIVE");
+
+            Debug.Log(gameObject.transform.rotation.y);
+
+        }
 	}
 
 	IEnumerator Test(){
@@ -44,13 +49,18 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void DisplayLevel(){
-		GameObject newLevel = Instantiate<GameObject> (Levels [currentLevel]);
 
-		newLevel.transform.SetParent(gameObject.transform, true);
+        Debug.Log("DisplayLevel");
+
+		levelObject = Instantiate<GameObject> (Levels [currentLevel]);
+        
+		levelObject.transform.SetParent(gameObject.transform, false);
+        levelObject.transform.position = new Vector3(-1f, -1f, -0.5f);
         //newLevel.transform.rotation.Set(0, 0, 0, 0);
 		//Set the new Player for the sound manager
 		Player player = gameObject.GetComponentInChildren<Player>();
-        player.enabled = false;
+        isInitialized = true;
+        
 		if (player != null) {
 			SoundManager.Instance.Player = player.gameObject;
 			Debug.Log (SoundManager.Instance.Player.name);

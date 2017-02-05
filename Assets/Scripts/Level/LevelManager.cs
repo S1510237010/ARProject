@@ -7,7 +7,7 @@ using UnityEngine;
  */
 public class LevelManager : MonoBehaviour {
 	public GameObject[] Levels;
-    public bool loaded = false;
+	private bool isInitialized = false;
 	//public Vector3 levelPosition;
 	private int currentLevel = 0;
 	public int CurrentLevel{
@@ -27,15 +27,16 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-	void Update(){
-        if (!gameObject.GetComponent<Placeable>().IsPlacing && !loaded)
-        {
-            DisplayLevel();
-            loaded = true;
-            //StartCoroutine (Test());
-        }
-
+    void Start()
+    {
+        //DisplayLevel();
     }
+
+	void Update(){
+		if (!GetComponent<Placeable> ().IsPlacing && !isInitialized) {
+			DisplayLevel ();
+		}
+	}
 
 	IEnumerator Test(){
 		yield return new WaitForSeconds(5);
@@ -45,10 +46,11 @@ public class LevelManager : MonoBehaviour {
 	private void DisplayLevel(){
 		GameObject newLevel = Instantiate<GameObject> (Levels [currentLevel]);
 
-		newLevel.transform.SetParent(gameObject.transform, false);
-        newLevel.transform.rotation.Set(0, 0, 0, 0);
+		newLevel.transform.SetParent(gameObject.transform, true);
+        //newLevel.transform.rotation.Set(0, 0, 0, 0);
 		//Set the new Player for the sound manager
 		Player player = gameObject.GetComponentInChildren<Player>();
+        player.enabled = false;
 		if (player != null) {
 			SoundManager.Instance.Player = player.gameObject;
 			Debug.Log (SoundManager.Instance.Player.name);

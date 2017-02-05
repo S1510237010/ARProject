@@ -18405,7 +18405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 2002592414}
-  speed: 0.03
+  speed: 0.02
   jumpForce: 120
   debugMode: 1
 --- !u!23 &2002592417

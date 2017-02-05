@@ -11,11 +11,25 @@ public class Player : MonoBehaviour
 	private Quaternion startRotation;
     private PlayerData data;
     public GameObject playerObject;
+
     public float speed = 0.1f;
     public float jumpForce = 0.02f;
     float movement = 0.0f;
+	bool isJumping = false;
+
     private float startTime;
-	private float previousRotation = 0;
+
+	public float Movement {
+		get{ 
+			// Grab the current head transform and broadcast it to all the other users in the session
+			Transform headTransform = Camera.main.transform;
+
+			// Transform the head position and rotation into local space
+			Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
+			Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
+			return speed * headRotation.z;
+		}
+	}
 
     public String PlayerName
     {
@@ -114,40 +128,15 @@ public class Player : MonoBehaviour
 
     public void run()
     {
-
-        // Grab the current head transform and broadcast it to all the other users in the session
-        Transform headTransform = Camera.main.transform;
-
-        // Transform the head position and rotation into local space
-        Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
-        Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
-
-        if (Math.Abs(headRotation.z) > 0.1)
-        {
-            System.Diagnostics.Debug.WriteLine("DEBUG: " + headRotation + "!");
-            movement = speed * headRotation.z;
-
-            Debug.Log("DEBUG: Head Rotation = " + headRotation.z + "!");
-            Debug.Log("DEBUG: Movement = " + movement + "!");
-			//playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
-
-        }
-        else
-        {
-            movement = 0;
-        }
-
         //playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
-        playerObject.transform.position = new Vector3(transform.position.x - movement, transform.position.y, transform.position.z);
+		playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
 
     }
 
     public void onJump()
     {
-		Transform headTransform = Camera.main.transform;
-		Vector3 headPosition = this.transform.InverseTransformPoint(headTransform.position);
-		Quaternion headRotation = Quaternion.Inverse(this.transform.rotation) * headTransform.rotation;
-		playerObject.GetComponent<Rigidbody>().AddForce(0, jumpForce, movement);
+		isJumping = true;
+		playerObject.GetComponent<Rigidbody>().AddForce(0, jumpForce, 0);
         //System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
         //Debug.Log("Jump!");
     }
@@ -174,15 +163,20 @@ public class Player : MonoBehaviour
 
     }
 
-    void FixedUpdate()
-    {
-        run();
-
-    }
-
 	public Boolean debugMode;
 	float testRotation = 0;
 	void Update(){
+		if (isJumping) {
+			if (playerObject.GetComponent<Rigidbody> ().velocity.y > 0) {
+				//Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
+				playerObject.GetComponent<Rigidbody> ().AddForce (-10*Movement/speed, 0, 0);
+			} else {
+				isJumping = false;
+			}
+		} else {
+			run();
+		}
+
 		if (debugMode) {
 			if (Input.GetKeyDown(KeyCode.W)) {
 				onJump ();
@@ -192,6 +186,11 @@ public class Player : MonoBehaviour
 				testRotation++;
 				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
 				//Debug.Log ("Left");
+			}
+			if (Input.GetKey(KeyCode.S)) {
+				testRotation = 0;
+				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
+				//Debug.Log ("Right");
 			}
 			if (Input.GetKey(KeyCode.D)) {
 				testRotation--;

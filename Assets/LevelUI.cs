@@ -6,13 +6,14 @@ using UnityEngine;
 public class LevelUI : MonoBehaviour {
 
 	public Player player;
-	Text currentScore;
-	Text currentDeaths;
-	Text currentTime;
+	TextMesh currentScore;
+	TextMesh currentDeaths;
+	TextMesh currentTime;
+	TextMesh currentLives;
 
 	void Start(){
-		Text[] components = GetComponentsInChildren<Text> ();
-		foreach(Text label in components){
+		TextMesh[] components = GetComponentsInChildren<TextMesh> ();
+		foreach(TextMesh label in components){
 			switch (label.name) {
 			case "Score":
 				currentScore = label;
@@ -23,6 +24,9 @@ public class LevelUI : MonoBehaviour {
 			case "Time":
 				currentTime = label;
 				break;
+			case "Lives":
+				currentLives = label;
+				break;
 			}
 		}
 	}
@@ -30,12 +34,11 @@ public class LevelUI : MonoBehaviour {
 	void FixedUpdate(){
 		if(player != null){
 			if (currentTime != null) {
-				currentTime.text = "Time  ";
 				float time = player.PlayerTimer;
 				if (time < 60f) {
-					currentTime.text += time.ToString("f1");
+					currentTime.text = time.ToString("f1");
 				} else {
-					currentTime.text += (System.Math.Floor (time / 60)) + ":" + (time % 60).ToString("f1");
+					currentTime.text = (System.Math.Floor (time / 60)) + ":" + (time % 60).ToString("f1");
 				}
 			}
 		}
@@ -44,11 +47,19 @@ public class LevelUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (player != null) {
+			
 			if(currentScore != null)
-				currentScore.text = player.Score + " Points";
+				currentScore.text = player.Score.ToString();
+			
 			if (currentDeaths != null)
 				currentDeaths.text = player.Deaths + " Deaths";
 			
+			if (currentLives != null) {
+				currentLives.text = "";
+				for (int i = 0; i < player.maxLives - player.Deaths; i++) {
+					currentLives.text += "♥";
+				}
+			}
 		}
 	}
 }

@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticleSystems:
   - {fileID: 1462981564169564, guid: 95fb3caf233898f4cae58d78a8bc5c14, type: 2}
-  - {fileID: 1295785147689076, guid: 65268ce0b4857454cbfa20bd7c774fc6, type: 2}
+  - {fileID: 1293340033616934, guid: b152113d1c7f0734590e60c4064ff057, type: 2}
 --- !u!114 &114402723030264490
 MonoBehaviour:
   m_ObjectHideFlags: 1

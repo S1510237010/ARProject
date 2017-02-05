@@ -182,8 +182,7 @@ public class Placeable : MonoBehaviour
                     ChildrenToHide[i].SetActive(true);
                 }
             }
-            Destroy(gameObject.GetComponent<Rigidbody>());
-            Destroy(gameObject.GetComponent("Placeable"));
+            
         }
     }
 
@@ -380,7 +379,9 @@ public class Placeable : MonoBehaviour
 
         // Exit placement mode.
         IsPlacing = false;
-        gameObject.transform.rotation.Set(0, 0, 0, 0);
+        Player player = gameObject.GetComponentInChildren<Player>();
+        player.enabled = true;
+        Destroy(gameObject.GetComponent<Placeable>());
     }
 
     /// <summary>

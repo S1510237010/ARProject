@@ -213,5 +213,10 @@ public class Player : MonoBehaviour
 		}
 	}
 
+    void Awake()
+    {
+        speed = 0; 
+    }
+
 }
 

@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	private Quaternion startRotation;
     private PlayerData data;
     public GameObject playerObject;
+	public int maxLives = 5;
 
     public float speed = 0.1f;
     public float jumpForce = 0.02f;
@@ -136,8 +137,8 @@ public class Player : MonoBehaviour
     public void onJump()
     {
 		isJumping = true;
-		playerObject.GetComponent<Rigidbody>().AddForce(0, jumpForce, 0);
-        //System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
+		playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*10), jumpForce, 0);
+		//System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
         //Debug.Log("Jump!");
     }
 
@@ -165,14 +166,22 @@ public class Player : MonoBehaviour
 
 	public Boolean debugMode;
 	float testRotation = 0;
+	float previousMovement = 0;
 	void Update(){
+
+		//Debug.Log ("Player Rotation: " + transform.rotation);
 		if (isJumping) {
 			if (playerObject.GetComponent<Rigidbody> ().velocity.y > 0) {
 				//Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
-				playerObject.GetComponent<Rigidbody> ().AddForce (-10*Movement/speed, 0, 0);
+				playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*20), 0, 0);
+
 			} else {
 				isJumping = false;
+				Rigidbody playerBody = playerObject.GetComponent<Rigidbody> ();
+				playerBody.velocity = Vector3.zero;
+				playerBody.angularVelocity = Vector3.zero;
 			}
+			Debug.Log ("Camera Rotation: " + Camera.main.transform.rotation.z);
 		} else {
 			run();
 		}

@@ -28,23 +28,23 @@ public class MicrophoneManager : MonoBehaviour
         /* TODO: DEVELOPER CODING EXERCISE 3.a */
 
         // 3.a: Create a new DictationRecognizer and assign it to dictationRecognizer variable.
-
+        dictationRecognizer = new DictationRecognizer();
 
         // 3.a: Register for dictationRecognizer.DictationHypothesis and implement DictationHypothesis below
         // This event is fired while the user is talking. As the recognizer listens, it provides text of what it's heard so far.
-
+        dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
 
         // 3.a: Register for dictationRecognizer.DictationResult and implement DictationResult below
         // This event is fired after the user pauses, typically at the end of a sentence. The full recognized string is returned here.
-
+        dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
 
         // 3.a: Register for dictationRecognizer.DictationComplete and implement DictationComplete below
         // This event is fired when the recognizer stops, whether from Stop() being called, a timeout occurring, or some other error.
-
+        dictationRecognizer.DictationComplete += DictationRecognizer_DictationComplete;
 
         // 3.a: Register for dictationRecognizer.DictationError and implement DictationError below
         // This event is fired when an error occurs.
-
+        dictationRecognizer.DictationError += DictationRecognizer_DictationError;
 
         // Query the maximum frequency of the default microphone. Use 'unused' to ignore the minimum frequency.
         int unused;
@@ -55,12 +55,13 @@ public class MicrophoneManager : MonoBehaviour
 
         // Use this to reset the UI once the Microphone is done recording after it was started.
         hasRecordingStarted = false;
+        StartRecording();
     }
 
     void Update()
     {
         // 3.a: Add condition to check if dictationRecognizer.Status is Running
-        if (hasRecordingStarted && !Microphone.IsRecording(deviceName))
+        if (hasRecordingStarted && !Microphone.IsRecording(deviceName) && dictationRecognizer.Status == SpeechSystemStatus.Running)
         {
             // Reset the flag now that we're cleaning up the UI.
             hasRecordingStarted = false;
@@ -78,13 +79,15 @@ public class MicrophoneManager : MonoBehaviour
     /// <returns>The audio clip recorded from the microphone.</returns>
     public AudioClip StartRecording()
     {
+        print("Invoked StartRecording method");
         // 3.a Shutdown the PhraseRecognitionSystem. This controls the KeywordRecognizers
-
+        //PhraseRecognitionSystem.Shutdown();
 
         // 3.a: Start dictationRecognizer
+        dictationRecognizer.Start();
 
         // 3.a Uncomment this line
-        //DictationDisplay.text = "Dictation is starting. It may take time to display your text the first time, but begin speaking now...";
+        DictationDisplay.text = "Dictation is starting. It may take time to display your text the first time, but begin speaking now...";
 
         // Set the flag that we've started recording.
         hasRecordingStarted = true;
@@ -98,10 +101,16 @@ public class MicrophoneManager : MonoBehaviour
     /// </summary>
     public void StopRecording()
     {
+        print("Invoked StopRecording Method");
         // 3.a: Check if dictationRecognizer.Status is Running and stop it if so
-
+        if (dictationRecognizer.Status == SpeechSystemStatus.Running)
+        {
+            dictationRecognizer.Stop();
+        }
 
         Microphone.End(deviceName);
+        System.Diagnostics.Debug.WriteLine("Recorded text: " + textSoFar);
+        print("Recorded text: " + textSoFar);
     }
 
     /// <summary>
@@ -112,7 +121,9 @@ public class MicrophoneManager : MonoBehaviour
     {
         // 3.a: Set DictationDisplay text to be textSoFar and new hypothesized text
         // We don't want to append to textSoFar yet, because the hypothesis may have changed on the next event
-
+        DictationDisplay.text = textSoFar.ToString() + " " + text + "...";
+        print("I'm listening...");
+        print(textSoFar);
     }
 
     /// <summary>
@@ -122,11 +133,15 @@ public class MicrophoneManager : MonoBehaviour
     /// <param name="confidence">A representation of how confident (rejected, low, medium, high) the recognizer is of this recognition.</param>
     private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
     {
-        // 3.a: Append textSoFar with latest text
+        print("You stopped talking...");
 
+        // 3.a: Append textSoFar with latest text
+        textSoFar.Append(text + ". ");
 
         // 3.a: Set DictationDisplay text to be textSoFar
+        DictationDisplay.text = textSoFar.ToString();
 
+        print(textSoFar);
     }
 
     /// <summary>
@@ -156,7 +171,7 @@ public class MicrophoneManager : MonoBehaviour
     private void DictationRecognizer_DictationError(string error, int hresult)
     {
         // 3.a: Set DictationDisplay text to be the error string
-
+        DictationDisplay.text = error + "\nHRESULT: " + hresult;
     }
 
     private IEnumerator RestartSpeechSystem(KeywordManager keywordToStart)

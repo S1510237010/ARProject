@@ -32,7 +32,6 @@ public class Platform : MonoBehaviour {
 			BoxCollider collider = gameObject.GetComponent<BoxCollider> ();
 			if (collider != null) {
 				collider.enabled = !collider.enabled;
-				//Debug.Log ("Active: " + collider.enabled);
 				setMaterial (collider.enabled);
 			}
 		}

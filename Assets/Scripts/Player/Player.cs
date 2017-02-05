@@ -85,26 +85,30 @@ public class Player : MonoBehaviour
     //Todo: Add respawn
     void die()
     {
-        Debug.Log ("Player Dead!");
         data.DeathCount++;
-        //Debug.Log("Death count: " + data.DeathCount);
-
-        if (SoundManager.Instance != null)
+        if (data.DeathCount == maxLives)
         {
-            SoundManager.Instance.playSoundAt(1, gameObject.transform);
+            NavigateToScene.GoToScene("Highscore");
         }
 
-        //Reset Player Position and velocity
-		if(gameObject.transform.position != startPosition){
-			ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
-		}
+        else {
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.playSoundAt(1, gameObject.transform);
+            }
 
-        playerObject.transform.position = startPosition;
-		playerObject.transform.rotation = startRotation;
-        Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
-        playerBody.velocity = Vector3.zero;
-        playerBody.angularVelocity = Vector3.zero;
+            //Reset Player Position and velocity
+            if (gameObject.transform.position != startPosition)
+            {
+                ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+            }
 
+            playerObject.transform.position = startPosition;
+            playerObject.transform.rotation = startRotation;
+            Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
+            playerBody.velocity = Vector3.zero;
+            playerBody.angularVelocity = Vector3.zero;
+        }
     }
 
     void win()
@@ -120,7 +124,6 @@ public class Player : MonoBehaviour
     //Todo: Add special effects and sound
     void collectItem(Item item)
     {
-        //Debug.Log("+" + item.ItemValue + " Points!");
         data.Score += item.ItemValue;
         ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
 
@@ -133,17 +136,17 @@ public class Player : MonoBehaviour
 
     public void run()
     {
-        //playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
 		playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
 
     }
 
-    public void onJump()
+    public void jump()
     {
-		isJumping = true;
-		playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*15), jumpForce, 0);
-		//System.Diagnostics.Debug.WriteLine("DEBUG: Jump!");
-        //Debug.Log("Jump!");
+        if(!isJumping)
+        {
+            isJumping = true;
+            playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)), jumpForce, 0);
+        }
     }
 
     void OnDestroy()
@@ -156,16 +159,10 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //TODO: Get PlayerName
-        //data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
-        //if (data == null) {
         data = new PlayerData("Name");
-        //}
 		startTime = Time.realtimeSinceStartup;
         startPosition = playerObject.transform.position;
 		startRotation = playerObject.transform.rotation;
-        //GestureManager.Instance.OverrideFocusedObject = this.gameObject;
-
     }
 
 	public Boolean debugMode;
@@ -173,50 +170,39 @@ public class Player : MonoBehaviour
 	float previousMovement = 0;
 	void Update(){
 
-		//Debug.Log ("Player Rotation: " + transform.rotation);
 		if (isJumping) {
-			if (playerObject.GetComponent<Rigidbody> ().velocity.y > 0) {
-				//Debug.Log ("Movement: " + playerObject.GetComponent<Rigidbody> ().velocity.x);
-				playerObject.GetComponent<Rigidbody> ().AddForce (-(Movement/speed*25), 0, 0);
+            if (playerObject.GetComponent<Rigidbody>().velocity.y > 0) {
+                playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 25)), 0, 0);
+            }
 
-			} else {
-				isJumping = false;
-				Rigidbody playerBody = playerObject.GetComponent<Rigidbody> ();
-				playerBody.velocity = Vector3.zero;
-				playerBody.angularVelocity = Vector3.zero;
-			}
-			Debug.Log ("Camera Rotation: " + Camera.main.transform.rotation.z);
+            else if (playerObject.GetComponent<Rigidbody>().velocity.y == 0) {
+                isJumping = false;
+                Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
+                playerBody.velocity = Vector3.zero;
+                playerBody.angularVelocity = Vector3.zero;
+            }
+
 		} else {
 			run();
 		}
 
 		if (debugMode) {
 			if (Input.GetKeyDown(KeyCode.W)) {
-				onJump ();
-				//Debug.Log ("Jump");
+				jump();
 			}
 			if (Input.GetKey(KeyCode.A)) {
 				testRotation++;
 				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
-				//Debug.Log ("Left");
 			}
 			if (Input.GetKey(KeyCode.S)) {
 				testRotation = 0;
 				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
-				//Debug.Log ("Right");
 			}
 			if (Input.GetKey(KeyCode.D)) {
 				testRotation--;
 				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
-				//Debug.Log ("Right");
 			}
 		}
 	}
-
-    void Awake()
-    {
-        speed = 0; 
-    }
-
 }
 

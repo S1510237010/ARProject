@@ -53,11 +53,11 @@ namespace Academy.HoloToolkit.Unity
             Debug.Log("Tapped Event!!");
             if (focusedObject != null)
             {
-                focusedObject.SendMessage("onJump");
+                focusedObject.SendMessage("jump");
             }
             else
             {
-                this.BroadcastMessage("onJump");
+                this.BroadcastMessage("jump");
             }
             
             //GameObject player = FindObjectOfType<Player>();

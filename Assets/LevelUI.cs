@@ -12,6 +12,7 @@ public class LevelUI : MonoBehaviour {
 	TextMesh currentLives;
 
 	void Start(){
+
 		TextMesh[] components = GetComponentsInChildren<TextMesh> ();
 		foreach(TextMesh label in components){
 			switch (label.name) {
@@ -56,9 +57,15 @@ public class LevelUI : MonoBehaviour {
 			
 			if (currentLives != null) {
 				currentLives.text = "";
-				for (int i = 0; i < player.maxLives - player.Deaths; i++) {
+				int i = 0;
+				for (; i < player.maxLives - player.Deaths; i++) {
 					currentLives.text += "♥";
 				}
+				currentLives.text += "<color=grey>";
+				for (; i< player.maxLives; i++){
+					currentLives.text += "♡";
+				}
+				currentLives.text += "</color>";
 			}
 		}
 	}

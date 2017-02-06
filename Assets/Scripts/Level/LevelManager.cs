@@ -61,11 +61,6 @@ public class LevelManager : MonoBehaviour {
 		//Set the new Player for the sound manager
 		Player player = gameObject.GetComponentInChildren<Player>();
         isInitialized = true;
-        
-		if (player != null) {
-			SoundManager.Instance.Player = player.gameObject;
-			Debug.Log (SoundManager.Instance.Player.name);
-		}
 	}
 
 	//loads the next level prefab, returns false if there are no more levels

@@ -151,7 +151,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 875db17e9da79184c93382775d65becf, type: 3}
   - {fileID: 8300000, guid: f60b2a0b34303544594318835bfa10dc, type: 3}
   - {fileID: 8300000, guid: d378956ad21cf79409957cefad2a7b50, type: 3}
-  Player: {fileID: 0}
   BackgroundSource: {fileID: 82396656400712728}
   BackgroundVolume: 0.5
   SoundVolume: 0.3

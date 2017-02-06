@@ -16,7 +16,6 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip[] SoundClips;
 	public AudioClip[] BackgroundMusic;
-	public GameObject Player;
 	public AudioSource BackgroundSource;
 	[Range(0,1)]
 	public float BackgroundVolume;
@@ -41,19 +40,19 @@ public class SoundManager : MonoBehaviour
 			StartCoroutine(DestroyGameObject(source.gameObject, duration));
 		}
 	}
-
-	public void playSound(int index)
+	/*
+	public void playSound(int index, GameObject carrier)
     {
-		if (index >= 0 && index < SoundClips.Length) {
-			AudioSource source = Player.AddComponent<AudioSource> ();
-			source.volume = SoundVolume;
-			source.PlayOneShot (SoundClips[index]);
+		if (index >= 0 && index < SoundClips.Length && carrier != null) {
+			AudioSource source = carrier.AddComponent<AudioSource> ();
+				source.volume = SoundVolume;
+				source.PlayOneShot (SoundClips[index]);
 
-			int duration = (int)Math.Ceiling(SoundClips[index].length);
-			StartCoroutine(DestroyAudioSource(source, duration));
+				int duration = (int)Math.Ceiling(SoundClips[index].length);
+				StartCoroutine(DestroyAudioSource(source, duration));
 		}
     }
-
+*/
 	IEnumerator DestroyAudioSource(AudioSource source, int t)
 	{
 		//Waits for the specified time and continues afterwards

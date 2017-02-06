@@ -111,7 +111,7 @@ MonoBehaviour:
   scanTime: 30
   defaultMaterial: {fileID: 2100000, guid: 45e8bbc72cb3bc54e9802117372ac5f4, type: 2}
   secondaryMaterial: {fileID: 2100000, guid: 45e8bbc72cb3bc54e9802117372ac5f4, type: 2}
-  minimumFloors: 1
+  minimumFloors: 0
   minimumWalls: 1
 --- !u!1001 &227595104
 Prefab:
@@ -378,9 +378,9 @@ MonoBehaviour:
     type: 2}
   NotPlaceableBoundsMaterial: {fileID: 2100000, guid: 58d42ea3d6fe280429bf26b5cc4a65d4,
     type: 2}
-  PlaceableShadowMaterial: {fileID: 2100000, guid: a25dd465874dfa54799f6e094507ccff,
+  PlaceableShadowMaterial: {fileID: 2100000, guid: b2c0b0a8d4484bb439690fdffc867efc,
     type: 2}
-  NotPlaceableShadowMaterial: {fileID: 2100000, guid: ca6d4215d30dd1d4fb473ff9a009765d,
+  NotPlaceableShadowMaterial: {fileID: 2100000, guid: faef6e55e55514a4caf8050f7bd9921b,
     type: 2}
   PlacementSurface: 2
   ChildrenToHide: []
@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 1140845375}
   - component: {fileID: 1140845374}
   - component: {fileID: 1140845373}
+  - component: {fileID: 1140845378}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -454,7 +455,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 7.9
+  field of view: 40.2
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -483,6 +484,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1140845378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1140845372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f703ca3df818c244186d96772084d82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1309840763
 GameObject:
   m_ObjectHideFlags: 0

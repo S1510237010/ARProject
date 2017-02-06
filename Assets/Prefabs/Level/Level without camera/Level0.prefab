@@ -1536,7 +1536,6 @@ Rigidbody:
   m_Drag: 0.01
   m_AngularDrag: 0
   m_UseGravity: 1
-  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -1970,12 +1969,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc2e3dc688e5404b938cbc7ea5e2638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: 0, z: 0}
+  startPosition: {fileID: 1921958315612530}
+  referencePosition: {fileID: 1740562290122590}
   playerObject: {fileID: 1444376734383420}
   maxLives: 5
   speed: 0.02
   jumpForce: 120
-  debugMode: 1
+  debugMode: 0
 --- !u!114 &114837237365499160
 MonoBehaviour:
   m_ObjectHideFlags: 1

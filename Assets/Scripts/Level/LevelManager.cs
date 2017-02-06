@@ -8,8 +8,6 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour {
 	public GameObject[] Levels;
     private GameObject levelObject;
-	private bool isInitialized = false;
-	//public Vector3 levelPosition;
 	private int currentLevel = 0;
 	public int CurrentLevel{
 		get{ return currentLevel; }
@@ -51,16 +49,12 @@ public class LevelManager : MonoBehaviour {
 
 	private void DisplayLevel(){
 
-        Debug.Log("DisplayLevel");
+		Debug.Log("Display Level " + CurrentLevel);
 
 		levelObject = Instantiate<GameObject> (Levels [currentLevel]);
-        
 		levelObject.transform.SetParent(gameObject.transform, false);
-        levelObject.transform.position = new Vector3(-1f, -1f, -0.5f);
+        //levelObject.transform.position = new Vector3(-1f, -1f, -0.5f);
         //newLevel.transform.rotation.Set(0, 0, 0, 0);
-		//Set the new Player for the sound manager
-		Player player = gameObject.GetComponentInChildren<Player>();
-        isInitialized = true;
 	}
 
 	//loads the next level prefab, returns false if there are no more levels

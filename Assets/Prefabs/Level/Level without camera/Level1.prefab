@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1742084394474678
 GameObject:
   m_ObjectHideFlags: 1
@@ -1969,7 +1969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc2e3dc688e5404b938cbc7ea5e2638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: 0, z: 0}
+  startPosition: {fileID: 0}
+  referencePosition: {fileID: 0}
   playerObject: {fileID: 1139144983958428}
   maxLives: 5
   speed: 0.02

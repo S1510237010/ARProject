@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: transparent
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_Shader: {fileID: 4800000, guid: ecabb61ab18b3d84598dc212c87c27d5, type: 3}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _USECOLOR_ON _USEMAINTEX_ON
   m_LightmapFlags: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -75,6 +75,12 @@ Material:
         name: _BumpScale
       second: 1
     - first:
+        name: _ColorWriteMask
+      second: 15
+    - first:
+        name: _Cull
+      second: 2
+    - first:
         name: _Cutoff
       second: 0.5
     - first:
@@ -116,6 +122,15 @@ Material:
     - first:
         name: _UVSec
       second: 0
+    - first:
+        name: _UseColor
+      second: 1
+    - first:
+        name: _UseMainTex
+      second: 1
+    - first:
+        name: _ZTest
+      second: 4
     - first:
         name: _ZWrite
       second: 0

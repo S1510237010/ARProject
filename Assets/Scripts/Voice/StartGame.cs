@@ -37,8 +37,7 @@ public class StartGame : MonoBehaviour
     void onStart()
     {
         //TODO: Segue to Tutorial Level
-		//NavigateToScene.GoToScene("Highscore");
-        System.Diagnostics.Debug.WriteLine("DEBUG: You said - Start Game");
-        print("DEBUG: You said - Start Game");
+        print("Said Start Game");
+		NavigateToScene.GoToScene("Levels");
     }
 }

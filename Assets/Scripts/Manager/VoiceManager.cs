@@ -15,18 +15,15 @@ public class VoiceManager : MonoBehaviour {
         for (int i = 0; i < possibleKeywords.Length; i++) {
             switch (possibleKeywords[i]) {
                 case "Start Game":
-                    keywords.Add("Start Game", () => { NavigateToScene.GoToScene("Levels");
-                    });
+                    keywords.Add("Start Game", () => { NavigateToScene.GoToScene("Levels");});
                     break; 
 
                 case "Exit Game":
-                    keywords.Add("Exit Game", () => { Application.Quit();
-                    });
+                    keywords.Add("Exit Game", () =>{ Application.Quit();});
                     break;
 
                 case "Restart Game":
-                    keywords.Add("Restart Game", () => { NavigateToScene.GoToScene("Levels");
-                    });
+                    keywords.Add("Restart Game", () => { NavigateToScene.GoToScene("Levels");});
                     break;
             }
         }

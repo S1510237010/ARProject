@@ -53,6 +53,10 @@ public class Player : MonoBehaviour
 		get { return data.DeathCount; }
 	}
 
+	void OnEnable(){
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+	}
 
 	// Use this for initialization
 	void Start()
@@ -151,8 +155,6 @@ public class Player : MonoBehaviour
 			SoundManager.Instance.playSoundAt(1, gameObject.transform);
             
             playerObject.transform.position = startPosition.transform.position;
-            
-            
             playerObject.transform.rotation = startRotation;
             Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
             playerBody.velocity = Vector3.zero;

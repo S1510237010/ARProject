@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Academy.HoloToolkit.Unity;
 /**
  * This class handles the creation/destruction of levels and puts them at it's own position/rotation
  */
 public class LevelManager : MonoBehaviour {
 	public GameObject[] Levels;
+	public bool debugMode;
+
     private GameObject levelObject;
 	private int currentLevel = 0;
 	public int CurrentLevel{
@@ -33,18 +35,23 @@ public class LevelManager : MonoBehaviour {
 
 	void Update(){
 		if (!levelObject.activeInHierarchy && !gameObject.GetComponent<Placeable>().IsPlacing) {
+			FindObjectOfType<SpatialMappingManager> ().DrawVisualMeshes = false;
             levelObject.SetActive(true);
             Debug.Log("SET ACTIVE");
-
+			transform.rotation = Quaternion.Euler (0, 0, transform.rotation.z);
             Debug.Log(gameObject.transform.rotation.y);
-
+			if (debugMode) {
+				StartCoroutine (Test());
+			}
         }
 		PlayerPrefs.DeleteKey ("player");
     }
 
-	IEnumerator Test(){
+	public IEnumerator Test(){
 		yield return new WaitForSeconds(5);
-		LoadNextLevel ();
+		if (LoadNextLevel ()) {
+			StartCoroutine (Test());
+		}
 	}
 
 	private void DisplayLevel(){
@@ -61,9 +68,9 @@ public class LevelManager : MonoBehaviour {
 	public bool LoadNextLevel(){
 		currentLevel++;
 		if (currentLevel < Levels.Length) {
-			Level oldLevel = FindObjectOfType<Level>();
+			GameObject oldLevel = GameObject.FindGameObjectWithTag("level");
 			if (oldLevel != null) {
-				Destroy (oldLevel.gameObject);
+				Destroy (oldLevel);
 			}
 			DisplayLevel();
 			return true;

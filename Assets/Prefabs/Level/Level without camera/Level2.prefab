@@ -278,9 +278,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4010853046918530}
+  - component: {fileID: 114546966713615622}
   m_Layer: 0
   m_Name: Level2
-  m_TagString: Untagged
+  m_TagString: level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -643,7 +644,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410355668753248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4920438578468320}
@@ -2029,6 +2030,18 @@ MonoBehaviour:
   speed: 0.02
   jumpForce: 120
   debugMode: 0
+--- !u!114 &114546966713615622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410355668753248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2143884ca48d2b542bb76766b06167a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
 --- !u!114 &114657482613762864
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -536,10 +536,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4597838080919240}
-  - component: {fileID: 114837237365499160}
   m_Layer: 0
   m_Name: Level0
-  m_TagString: Untagged
+  m_TagString: level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1536,6 +1535,7 @@ Rigidbody:
   m_Drag: 0.01
   m_AngularDrag: 0
   m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -1976,18 +1976,6 @@ MonoBehaviour:
   speed: 0.02
   jumpForce: 120
   debugMode: 0
---- !u!114 &114837237365499160
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1927903721225550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2143884ca48d2b542bb76766b06167a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Level 0
 --- !u!135 &135611403990936020
 SphereCollider:
   m_ObjectHideFlags: 1

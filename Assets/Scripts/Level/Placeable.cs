@@ -346,7 +346,8 @@ public class Placeable : MonoBehaviour
     /// the object has been placed, check the value of the IsPlacing property.
     /// </remarks>
     public void OnPlacementStop()
-    {
+	{	GameObject[] maps = GameObject.FindGameObjectsWithTag ("mapping");
+		
         // ValidatePlacement requires a normal as an out parameter.
         Vector3 position;
         Vector3 surfaceNormal;

@@ -12,6 +12,7 @@ TagManager:
   - startPosition
   - referencePosition
   - player
+  - mapping
   layers:
   - Default
   - TransparentFX

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 using Academy.HoloToolkit.Unity;
 
 
 public class Player : MonoBehaviour
 {
-    public Vector3 startPosition;
+	public GameObject startPosition;
+	public GameObject referencePosition;
 	private Quaternion startRotation;
     private PlayerData data;
     public GameObject playerObject;
@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
 
     public float speed = 0.1f;
     public float jumpForce = 0.02f;
-    float movement = 0.0f;
+	public Boolean debugMode;
+	float testRotation = 0;
 	bool isJumping = false;
 
     private float startTime;
@@ -31,12 +32,6 @@ public class Player : MonoBehaviour
 			return speed * headRotation.z;
 		}
 	}
-
-    public String PlayerName
-    {
-        get { return data.PlayerName; }
-        set { data.PlayerName = value; }
-    }
 
     public int Score
     {
@@ -56,6 +51,65 @@ public class Player : MonoBehaviour
 	public int Deaths
 	{
 		get { return data.DeathCount; }
+	}
+
+
+	// Use this for initialization
+	void Start()
+	{
+		data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
+		if (data == null) {
+			data = new PlayerData();
+		}
+		if (debugMode) {
+			data = new PlayerData ();
+		}
+		startTime = Time.realtimeSinceStartup;
+		startRotation = playerObject.transform.rotation;
+	}
+
+	void Update(){
+
+		if (isJumping) {
+			if (playerObject.GetComponent<Rigidbody>().velocity.y > 0) {
+				playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 25)), 0, 0);
+			}
+
+			else if (playerObject.GetComponent<Rigidbody>().velocity.y == 0) {
+				isJumping = false;
+				Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
+				playerBody.velocity = Vector3.zero;
+				playerBody.angularVelocity = Vector3.zero;
+			}
+
+		} else {
+			run();
+		}
+
+		if (debugMode) {
+			if (Input.GetKeyDown(KeyCode.W)) {
+				jump();
+			}
+			if (Input.GetKey(KeyCode.A)) {
+				testRotation++;
+				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
+			}
+			if (Input.GetKey(KeyCode.S)) {
+				testRotation = 0;
+				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
+			}
+			if (Input.GetKey(KeyCode.D)) {
+				testRotation--;
+				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
+			}
+		}
+	}
+
+	void OnDestroy()
+	{
+		//Stores player data to the preferences
+		data.Timer = PlayerTimer;
+		PreferenceManager.WriteJsonToPreferences("player", data);
 	}
 
     void OnTriggerEnter(Collider other)
@@ -82,7 +136,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Todo: Add respawn
     void die()
     {
         data.DeathCount++;
@@ -91,36 +144,14 @@ public class Player : MonoBehaviour
             NavigateToScene.GoToScene("Highscore");
         }
         else {
-
             //Reset Player Position and velocity
+			if(transform.position != startPosition.transform){
+				ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+			}
+			SoundManager.Instance.playSoundAt(1, gameObject.transform);
             
-            ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
-            if (SoundManager.Instance != null)
-            {
-                SoundManager.Instance.playSoundAt(1, gameObject.transform);
-            }
-
-            //playerObject.transform.position = startPosition;
-            GameObject starter = null;
-            GameObject[] all = FindObjectsOfType<GameObject>();
-
-            for (int i = 0; i < all.Length; i++)
-            {
-                if (all[i].tag == "startPosition")
-                {
-                    starter = all[i];
-                }
-            }
-            if (starter != null)
-            {
-                playerObject.transform.position = starter.transform.position;
-            }
-            else
-            {
-                playerObject.transform.position = startPosition;
-            }
-           
-
+            playerObject.transform.position = startPosition.transform.position;
+            
             
             playerObject.transform.rotation = startRotation;
             Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
@@ -131,6 +162,7 @@ public class Player : MonoBehaviour
 
     void win()
     {
+		if(LevelManager != )
 		data.Score += (LevelManager.Instance.CurrentLevel+1) * 100;
         //navigates to the next level or the highscore view
         if (!LevelManager.Instance.LoadNextLevel())
@@ -139,199 +171,66 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Todo: Add special effects and sound
     void collectItem(Item item)
     {
         data.Score += item.ItemValue;
+		item.gameObject.SetActive (false);
         ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
-
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.playSound(0);
-        }
-        Destroy(item.gameObject);
+		SoundManager.Instance.playSoundAt(0, gameObject.transform);
+        
+		Destroy (item.gameObject);
     }
 
     public void run()
     {
-
-        GameObject starter = null, reference = null;
-
-        GameObject[] all = FindObjectsOfType<GameObject>();
-
-        for (int i = 0; i < all.Length; i++)
+        if (startPosition != null && referencePosition != null)
         {
-            if (all[i].tag == "startPosition")
-            {
-                starter = all[i];
-            }
-            if (all[i].tag == "referencePosition")
-            {
-                reference = all[i];
-            }
-        }
-
-
-        if (starter != null && reference != null)
-        {
-            float x = starter.transform.position.x - reference.transform.position.x;
-            float z = starter.transform.position.z - reference.transform.position.z;
-            /*
-            if (Math.Abs(x) > Math.Abs(z))
-            {
-                //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
-                if (x < 0)
-                {
-                    playerObject.transform.position = new Vector3(transform.position.x + Movement, transform.position.y, transform.position.z);
-                }
-                else
-                {
-                    playerObject.transform.position = new Vector3(transform.position.x - Movement, transform.position.y, transform.position.z);
-                }
-
-            }
-            else
-            {
-                if (z < 0)
-                {
-                    playerObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + Movement);
-                }
-                else
-                {
-                    playerObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - Movement);
-                }
-                //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
-
-            }
-            */
-
+            float x = startPosition.transform.position.x - referencePosition.transform.position.x;
+            float z = startPosition.transform.position.z - referencePosition.transform.position.z;
+            
+			//Calculate the new position
             Vector3 move = playerObject.transform.position;
-            //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
             if (x < 0)
             {
-                move.x = move.x + Movement * x;
+                move.x += Movement * x;
             }
             else
             {
-                move.x = move.x - Movement * x;
+                move.x -= Movement * x;
             }
 
             if (z < 0)
             {
-                move.z = move.z + Movement * z;
+                move.z += Movement * z;
             }
             else
             {
-                move.z = move.z - Movement * z;
+                move.z -= Movement * z;
             }
-            //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
 
             playerObject.transform.position = move;
 
         }
         else
         {
-            Debug.Log("SOMETHING IS NULL");
+            Debug.Log("Run: Missing positioning information!");
         }
-
-
-        //playerObject.GetComponent<Rigidbody>().AddForce(new Vector3(movement, 0, 0));
 
     }
 
     public void jump()
     {
-        Debug.Log("Jumping really high.......");
         if (!isJumping)
         {
-
-            GameObject starter = null, reference = null;
-
-            GameObject[] all = FindObjectsOfType<GameObject>();
-
-            for (int i = 0; i < all.Length; i++)
-            {
-                if (all[i].tag == "startPosition")
-                {
-                    starter = all[i];
-                }
-                if (all[i].tag == "referencePosition")
-                {
-                    reference = all[i];
-                }
-            }
-
-
-            if (starter != null && reference != null)
+			if (startPosition != null && referencePosition != null)
             {
                 isJumping = true;
-                float x = starter.transform.position.x - reference.transform.position.x;
-                float z = starter.transform.position.z - reference.transform.position.z;
+				float x = startPosition.transform.position.x - referencePosition.transform.position.x;
+				float z = startPosition.transform.position.z - referencePosition.transform.position.z;
                 playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)) * x, jumpForce, (-(Movement / speed * 15)) * z);
             }
         }
     }
-
-    void OnDestroy()
-    {
-        //Stores player data to the preferences
-		data.Timer = PlayerTimer;
-        PreferenceManager.WriteJsonToPreferences("player", data);
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        //TODO: Get PlayerName
-        data = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
-        if (data == null) {
-        	data = new PlayerData();
-        }
-		startTime = Time.realtimeSinceStartup;
-        startPosition = playerObject.transform.position;
-		startRotation = playerObject.transform.rotation;
-    }
-
-	public Boolean debugMode;
-	float testRotation = 0;
-	float previousMovement = 0;
-
-	void Update(){
-
-		if (isJumping) {
-            if (playerObject.GetComponent<Rigidbody>().velocity.y > 0) {
-                playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 25)), 0, 0);
-            }
-
-            else if (playerObject.GetComponent<Rigidbody>().velocity.y == 0) {
-                isJumping = false;
-                Rigidbody playerBody = playerObject.GetComponent<Rigidbody>();
-                playerBody.velocity = Vector3.zero;
-                playerBody.angularVelocity = Vector3.zero;
-            }
-
-		} else {
-			run();
-		}
-
-		if (debugMode) {
-			if (Input.GetKeyDown(KeyCode.W)) {
-				jump();
-			}
-			if (Input.GetKey(KeyCode.A)) {
-				testRotation++;
-				Camera.main.transform.rotation = Quaternion.Euler(0, 0, testRotation);
-			}
-			if (Input.GetKey(KeyCode.S)) {
-				testRotation = 0;
-				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
-			}
-			if (Input.GetKey(KeyCode.D)) {
-				testRotation--;
-				Camera.main.transform.rotation = Quaternion.Euler (0, 0, testRotation);
-			}
-		}
-	}
 
 }
 

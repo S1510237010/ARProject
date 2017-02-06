@@ -93,9 +93,11 @@ public class Player : MonoBehaviour
         else {
 
             //Reset Player Position and velocity
-            if (gameObject.transform.position != startPosition)
+            
+            ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+            if (SoundManager.Instance != null)
             {
-                ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+                SoundManager.Instance.playSoundAt(1, gameObject.transform);
             }
 
             //playerObject.transform.position = startPosition;
@@ -117,10 +119,7 @@ public class Player : MonoBehaviour
             {
                 playerObject.transform.position = startPosition;
             }
-            if (SoundManager.Instance != null)
-            {
-                SoundManager.Instance.playSoundAt(1, gameObject.transform);
-            }
+           
 
             
             playerObject.transform.rotation = startRotation;
@@ -210,20 +209,20 @@ public class Player : MonoBehaviour
             //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
             if (x < 0)
             {
-                move.x = move.x - Movement * x;
+                move.x = move.x + Movement * x;
             }
             else
             {
-                move.x = move.x + Movement * x;
+                move.x = move.x - Movement * x;
             }
 
             if (z < 0)
             {
-                move.z = move.z - Movement * z;
+                move.z = move.z + Movement * z;
             }
             else
             {
-                move.z = move.z + Movement * z;
+                move.z = move.z - Movement * z;
             }
             //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
 

@@ -15,8 +15,8 @@ public class HighscoreManager: MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //LoadData();
-		LoadMockupData();
+        LoadData();
+		//LoadMockupData();
         PlayerData currentPlayerData = PreferenceManager.ReadJsonFromPreferences<PlayerData>("player");
         AddItem(currentPlayerData);
         if (highscoreItem != null)

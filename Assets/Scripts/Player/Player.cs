@@ -245,8 +245,31 @@ public class Player : MonoBehaviour
         Debug.Log("Jumping really high.......");
         if (!isJumping)
         {
-            isJumping = true;
-            playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)), jumpForce, 0);
+
+            GameObject starter = null, reference = null;
+
+            GameObject[] all = FindObjectsOfType<GameObject>();
+
+            for (int i = 0; i < all.Length; i++)
+            {
+                if (all[i].tag == "startPosition")
+                {
+                    starter = all[i];
+                }
+                if (all[i].tag == "referencePosition")
+                {
+                    reference = all[i];
+                }
+            }
+
+
+            if (starter != null && reference != null)
+            {
+                isJumping = true;
+                float x = starter.transform.position.x - reference.transform.position.x;
+                float z = starter.transform.position.z - reference.transform.position.z;
+                playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)) * x, jumpForce, (-(Movement / speed * 15)) * z);
+            }
         }
     }
 

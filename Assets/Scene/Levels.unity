@@ -280,7 +280,7 @@ Prefab:
     - target: {fileID: 114394520415318602, guid: 47e25bc4b15f23747ab605619b209504,
         type: 2}
       propertyPath: Levels.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4524287533911668, guid: 47e25bc4b15f23747ab605619b209504, type: 2}
       propertyPath: m_LocalPosition.x

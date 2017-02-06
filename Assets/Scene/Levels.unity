@@ -322,7 +322,25 @@ Prefab:
         type: 2}
       propertyPath: Levels.Array.data[0]
       value: 
-      objectReference: {fileID: 1496881440046246, guid: cc76a3207cedca246af021d70bbb9d53,
+      objectReference: {fileID: 1884968867279966, guid: da9d39586c6b844448bb106055951afc,
+        type: 2}
+    - target: {fileID: 114394520415318602, guid: 47e25bc4b15f23747ab605619b209504,
+        type: 2}
+      propertyPath: Levels.Array.data[1]
+      value: 
+      objectReference: {fileID: 1453114645901002, guid: b8f218b777d0d37429932f372d59923f,
+        type: 2}
+    - target: {fileID: 114394520415318602, guid: 47e25bc4b15f23747ab605619b209504,
+        type: 2}
+      propertyPath: Levels.Array.data[2]
+      value: 
+      objectReference: {fileID: 1599723976298194, guid: e15a020a797bfa94d9ebbc1a1a0c6e09,
+        type: 2}
+    - target: {fileID: 114394520415318602, guid: 47e25bc4b15f23747ab605619b209504,
+        type: 2}
+      propertyPath: Levels.Array.data[3]
+      value: 
+      objectReference: {fileID: 1340258792783984, guid: af5180b7667ccc149bf34e4528a5f273,
         type: 2}
     m_RemovedComponents:
     - {fileID: 114949983144088668, guid: 47e25bc4b15f23747ab605619b209504, type: 2}

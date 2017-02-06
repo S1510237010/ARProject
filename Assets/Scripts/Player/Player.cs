@@ -177,7 +177,7 @@ public class Player : MonoBehaviour
         {
             float x = starter.transform.position.x - reference.transform.position.x;
             float z = starter.transform.position.z - reference.transform.position.z;
-
+            /*
             if (Math.Abs(x) > Math.Abs(z))
             {
                 //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
@@ -204,6 +204,30 @@ public class Player : MonoBehaviour
                 //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
 
             }
+            */
+
+            Vector3 move = playerObject.transform.position;
+            //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
+            if (x < 0)
+            {
+                move.x = move.x - Movement * x;
+            }
+            else
+            {
+                move.x = move.x + Movement * x;
+            }
+
+            if (z < 0)
+            {
+                move.z = move.z - Movement * z;
+            }
+            else
+            {
+                move.z = move.z + Movement * z;
+            }
+            //playerObject.transform.position = new Vector3(transform.position.x - (Movement * x), transform.position.y, transform.position.z - (Movement * z));
+
+            playerObject.transform.position = move;
 
         }
         else
@@ -218,7 +242,8 @@ public class Player : MonoBehaviour
 
     public void jump()
     {
-        if(!isJumping)
+        Debug.Log("Jumping really high.......");
+        if (!isJumping)
         {
             isJumping = true;
             playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)), jumpForce, 0);

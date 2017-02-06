@@ -36,6 +36,8 @@ namespace Academy.HoloToolkit.Unity
         private GestureRecognizer gestureRecognizer;
         private GameObject focusedObject;
 
+        public GameObject levelMang;
+
         void Start()
         {
             // Create a new GestureRecognizer. Sign up for tapped events.
@@ -50,17 +52,27 @@ namespace Academy.HoloToolkit.Unity
 
         private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
         {
-            Debug.Log("Tapped Event!!");
+             
             if (focusedObject != null)
             {
                 focusedObject.SendMessage("OnSelect");
+                Debug.Log(focusedObject.name);
+                Debug.Log("ONSelect");
+
+                if (!focusedObject.name.Equals("LevelManager"))
+                {
+                    levelMang.BroadcastMessage("jump");
+                    Debug.Log("JUMP - to my heart!");
+                }
+
             }
             else
             {
-                Debug.Log("JUMP!!!!");
-                GameObject.Find("Player").SendMessage("jump");
+                Debug.Log("Focused Object is null");
+                levelMang.BroadcastMessage("jump");
             }
             
+                                 
             //GameObject player = FindObjectOfType<Player>();
 
 

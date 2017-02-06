@@ -1602,6 +1602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc2e3dc688e5404b938cbc7ea5e2638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: 0, z: 0}
   playerObject: {fileID: 1275628991964908}
   maxLives: 5
   speed: 0.02

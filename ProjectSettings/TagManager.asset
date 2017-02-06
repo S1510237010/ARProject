@@ -11,6 +11,7 @@ TagManager:
   - room
   - startPosition
   - referencePosition
+  - player
   layers:
   - Default
   - TransparentFX

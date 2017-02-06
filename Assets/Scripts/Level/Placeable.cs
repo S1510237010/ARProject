@@ -135,10 +135,7 @@ public class Placeable : MonoBehaviour
         {
             OnPlacementStop();
         }
-        else
-        {
-            Destroy(gameObject.GetComponent<Placeable>());
-        }
+        
         
     }
 
@@ -374,8 +371,10 @@ public class Placeable : MonoBehaviour
 
         // Tell the gesture manager that it is to resume
         // its normal behavior.
-        GestureManager.Instance.OverrideFocusedObject = null;
 
+        GestureManager.Instance.OverrideFocusedObject = null;
+        Debug.Log("Player is now on Foccus");
+        
         // Exit placement mode.
         IsPlacing = false;
     }

@@ -162,13 +162,15 @@ public class Player : MonoBehaviour
 
     void win()
     {
-		if(LevelManager != )
-		data.Score += (LevelManager.Instance.CurrentLevel+1) * 100;
-        //navigates to the next level or the highscore view
-        if (!LevelManager.Instance.LoadNextLevel())
-        {
-            NavigateToScene.GoToScene("Highscore");
-        }
+		if (LevelManager != null) {
+			data.Score += (LevelManager.Instance.CurrentLevel + 1) * 100;
+			//navigates to the next level or the highscore view
+			if (!LevelManager.Instance.LoadNextLevel ()) {
+				NavigateToScene.GoToScene ("Highscore");
+			}
+		} else {
+			NavigateToScene.GoToScene ("Highscore");
+		}
     }
 
     void collectItem(Item item)

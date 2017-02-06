@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
         }
         else {
             //Reset Player Position and velocity
-			if(transform.position != startPosition.transform){
+			if(transform.position != startPosition.transform.position){
 				ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
 			}
 			SoundManager.Instance.playSoundAt(1, gameObject.transform);
@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
 
     void win()
     {
-		if (LevelManager != null) {
+		if (LevelManager.Instance != null) {
 			data.Score += (LevelManager.Instance.CurrentLevel + 1) * 100;
 			//navigates to the next level or the highscore view
 			if (!LevelManager.Instance.LoadNextLevel ()) {

@@ -6,8 +6,8 @@ using Academy.HoloToolkit.Unity;
 
 public class Player : MonoBehaviour
 {
-	public GameObject startPosition;
-	public GameObject referencePosition;
+	public GameObject startPosition;    // Position of the startpoint in the level
+	public GameObject referencePosition;    // Reference Point to determine, how the level is placed in the room and how the player has to move (x and z Achse)
 	private Quaternion startRotation;
     private PlayerData data;
     public GameObject playerObject;
@@ -185,6 +185,11 @@ public class Player : MonoBehaviour
 		Destroy (item.gameObject);
     }
 
+    /**
+     * This method makes the player move.
+     * It depends on how the position of the level is in the room and how the two empty gameobjects (startPosition and referencePosition) are
+     * positioned to each other. 
+     */
     public void run()
     {
         if (startPosition != null && referencePosition != null)
@@ -222,13 +227,17 @@ public class Player : MonoBehaviour
 
     }
 
+    /**
+     * This method is called, when the player jumps. It is the movement of the Jump.
+     */
     public void jump()
     {
-        if (!isJumping)
+        if (!isJumping) // it is only possible to jump one time at a time
         {
 			if (startPosition != null && referencePosition != null)
             {
                 isJumping = true;
+                // calculating the movement for the jump, so that the player jumps a bow
 				float x = startPosition.transform.position.x - referencePosition.transform.position.x;
 				float z = startPosition.transform.position.z - referencePosition.transform.position.z;
                 playerObject.GetComponent<Rigidbody>().AddForce((-(Movement / speed * 15)) * x, jumpForce, (-(Movement / speed * 15)) * z);

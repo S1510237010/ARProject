@@ -61,8 +61,9 @@ public class LevelManager : MonoBehaviour {
 			FindObjectOfType<SpatialMappingManager> ().DrawVisualMeshes = false;
             levelObject.SetActive(true);
             //Debug.Log("SET ACTIVE");
+			//Debug.Log(gameObject.transform.rotation);
 			transform.rotation = Quaternion.Euler (0, 0, transform.rotation.z);
-            //Debug.Log(gameObject.transform.rotation.y);
+            //Debug.Log(gameObject.transform.rotation);
 			if (debugMode) {
 				StartCoroutine (Test());
 			}

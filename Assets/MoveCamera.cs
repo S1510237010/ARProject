@@ -15,19 +15,19 @@ public class MoveCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if (Input.GetKey(KeyCode.A)) {
+		if (Input.GetKey(KeyCode.LeftArrow)) {
 			rotation++;
 			transform.rotation = Quaternion.Euler(0, rotation, 0);
 		}
-		if (Input.GetKey(KeyCode.W)) {
+		if (Input.GetKey(KeyCode.UpArrow)) {
 			position += 0.1f;
 			transform.position = new Vector3 (0, position, 0);
 		}
-		if (Input.GetKey(KeyCode.S)) {
+		if (Input.GetKey(KeyCode.DownArrow)) {
 			position -= 0.1f;
 			transform.position = new Vector3 (0, position, 0);
 		}
-		if (Input.GetKey(KeyCode.D)) {
+		if (Input.GetKey(KeyCode.RightArrow)) {
 			rotation--;
 			Camera.main.transform.rotation = Quaternion.Euler (0, rotation, 0);
 		}

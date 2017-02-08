@@ -203,7 +203,11 @@ Prefab:
         type: 2}
       propertyPath: levelMang
       value: 
+<<<<<<< HEAD
       objectReference: {fileID: 1244054932}
+=======
+      objectReference: {fileID: 1007793135}
+>>>>>>> 1ec3e6b82e0e1bf35483be6107b453110919eeea
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23ad9f6d97194c040a5c420b6aed514d, type: 2}
   m_IsPrefabParent: 0
@@ -270,6 +274,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1007793135 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1364183502042460, guid: 1832b9aa7401a9a40a425a335d0c9c0f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1244054931}
 --- !u!1 &1140845372
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +373,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1140845372}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f703ca3df818c244186d96772084d82b, type: 3}
   m_Name: 
@@ -418,6 +427,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1269321897404676, guid: 535a5f3187d9a2841b2e931ee2739f7b,
         type: 2}
+    - target: {fileID: 114618607693532764, guid: 1832b9aa7401a9a40a425a335d0c9c0f,
+        type: 2}
+      propertyPath: debugMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1832b9aa7401a9a40a425a335d0c9c0f, type: 2}
   m_IsPrefabParent: 0
@@ -532,7 +546,7 @@ Prefab:
         type: 2}
       propertyPath: roomModel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 100008, guid: 7cc55bca7d97a69468c571802d24052f, type: 3}
     - target: {fileID: 114277778184841020, guid: ed3487c9a093a144e88ad1ad2e5c2562,
         type: 2}
       propertyPath: castShadows

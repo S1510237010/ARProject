@@ -187,10 +187,12 @@ public class Player : MonoBehaviour
         else {
 			if(transform.position != startPosition.transform.position){
 				// Instantiate explosion particle system
-				ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
+				if(ParticleSpawner.Instance != null)
+					ParticleSpawner.Instance.SpawnParticleSystem(0, gameObject.transform);
 			}
 			// Play explosion sound effect
-			SoundManager.Instance.playSoundAt(1, gameObject.transform);
+			if(SoundManager.Instance != null)
+				SoundManager.Instance.playSoundAt(1, gameObject.transform);
             
 			// Reset Player Position and velocity
             playerObject.transform.position = startPosition.transform.position;
@@ -227,8 +229,10 @@ public class Player : MonoBehaviour
 		item.gameObject.SetActive (false);
 
 		// Plays the item collection SFX
-        ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
-		SoundManager.Instance.playSoundAt(0, gameObject.transform);
+		if(ParticleSpawner.Instance != null)
+        	ParticleSpawner.Instance.SpawnParticleSystem(1, item.gameObject.transform);
+		if(SoundManager.Instance != null)
+			SoundManager.Instance.playSoundAt(0, gameObject.transform);
 
 		Destroy (item.gameObject);
     }

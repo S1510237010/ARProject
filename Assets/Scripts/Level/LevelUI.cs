@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class LevelUI : MonoBehaviour {
 
+/// <summary>
+/// This class searches for Textmeshes with specific tags and fills them with the appropriate content.
+/// </summary>
+public class LevelUI : MonoBehaviour {
+	[Tooltip("The player object that supplies the data.")]
 	public Player player;
 	TextMesh currentScore;
 	TextMesh currentDeaths;
 	TextMesh currentTime;
 	TextMesh currentLives;
 
+	/// <summary>
+	/// Searches for the components on startup
+	/// </summary>
 	void Start(){
-
 		TextMesh[] components = GetComponentsInChildren<TextMesh> ();
 		foreach(TextMesh label in components){
 			switch (label.name) {
@@ -31,7 +37,10 @@ public class LevelUI : MonoBehaviour {
 			}
 		}
 	}
-
+		
+	/// <summary>
+	/// Updates the timer at a fixed interval if one is available
+	/// </summary>
 	void FixedUpdate(){
 		if(player != null){
 			if (currentTime != null) {
@@ -44,8 +53,10 @@ public class LevelUI : MonoBehaviour {
 			}
 		}
 	}
-
-	// Update is called once per frame
+		
+	/// <summary>
+	/// Updates all other fields (lives, score)
+	/// </summary>
 	void Update () {
 		if (player != null) {
 			

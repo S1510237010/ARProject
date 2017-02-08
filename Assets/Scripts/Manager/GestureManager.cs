@@ -36,7 +36,7 @@ namespace Academy.HoloToolkit.Unity
         private GestureRecognizer gestureRecognizer;
         private GameObject focusedObject;
 
-        public GameObject levelMang;
+        public GameObject levelManager;
 
         void Start()
         {
@@ -55,32 +55,20 @@ namespace Academy.HoloToolkit.Unity
              
             if (focusedObject != null)
             {
-                focusedObject.SendMessage("OnSelect");
-                Debug.Log(focusedObject.name);
-                Debug.Log("ONSelect");
-
-                if (!focusedObject.name.Equals("LevelManager"))
+                focusedObject.SendMessage("OnSelect"); // sends Message to focused Object -> is overwritten in Placeable
+                
+                if (!focusedObject.name.Equals("LevelManager")) // if the focused Object is not the LevelManager
+                    // this is the case, when the Placement is done and when the game already started
                 {
-                    levelMang.BroadcastMessage("jump");
-                    Debug.Log("JUMP - to my heart!");
+                    levelManager.BroadcastMessage("jump"); // sends Broadcast to the Levelmanager -> jump is called at the Playerscript
                 }
 
             }
-            else
+            else // if focusedObject is null, that means, if the User doesnt look at a Hologram
             {
-                Debug.Log("Focused Object is null");
-                levelMang.BroadcastMessage("jump");
-            }
-            
-                                 
-            //GameObject player = FindObjectOfType<Player>();
-
-
-            /*if (focusedObject != null)
-            {
-                focusedObject.SendMessage("onJump");
-                System.Diagnostics.Debug.WriteLine("DEBUG: Tapped Event invoked!");
-            }*/
+               levelManager.BroadcastMessage("jump");
+            }       
+                               
         }
 
         void LateUpdate()

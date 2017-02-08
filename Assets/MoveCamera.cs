@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is used to move the camera for testing purposes.
+/// </summary>
 public class MoveCamera : MonoBehaviour {
 
 	float rotation = 0;
 	float position = 0;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
+	// Reacts to keyboard input and moves the camera around.
 	void Update () {
 		
 		if (Input.GetKey(KeyCode.LeftArrow)) {

@@ -203,11 +203,7 @@ Prefab:
         type: 2}
       propertyPath: levelMang
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 1244054932}
-=======
       objectReference: {fileID: 1007793135}
->>>>>>> 1ec3e6b82e0e1bf35483be6107b453110919eeea
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23ad9f6d97194c040a5c420b6aed514d, type: 2}
   m_IsPrefabParent: 0

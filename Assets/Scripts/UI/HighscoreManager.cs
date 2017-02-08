@@ -4,15 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Manages the highscore entries.
+/// </summary>
 public class HighscoreManager: MonoBehaviour
 {
-    private List<PlayerData> highscoreData;
+	/// <summary>
+	/// The highscore item prefab that will be used for the list.
+	/// </summary>
     public GameObject highscoreItem;
-    public int ListSize;
-    public string PreferenceKey;
 
-    // Use this for initialization
+	/// <summary>
+	/// The number of entries in the highscore list
+	/// </summary>
+    public int ListSize;
+
+	/// <summary>
+	/// The preference key that is used for highscore data storage.
+	/// </summary>
+	public string PreferenceKey;
+	private List<PlayerData> highscoreData;
+
+	/// <summary>
+	/// Initalizes the highscore list.
+	/// </summary>
     void Start()
     {
         LoadData();
@@ -23,25 +38,20 @@ public class HighscoreManager: MonoBehaviour
         {
             UpdateListView();
         }
-        Debug.Log("Finished Highscore Initialization");
+        //Debug.Log("Finished Highscore Initialization");
     }
 
+	/// <summary>
+	/// Serializes the updated highscore list when it is destroyed.
+	/// </summary>
     void OnDestroy()
     {
        storeData();
     }
 
-	private void LoadMockupData(){
-		highscoreData = new List<PlayerData> ();
-		System.Random rand = new System.Random ();
-		for (int i = 0; i < 5; i++) {
-			PlayerData data = new PlayerData();
-			data.Score = rand.Next (1, 100) * 10;
-			data.DeathCount = rand.Next (0, 10);
-			AddItem (data);
-		}
-	}
-
+	/// <summary>
+	/// Loads the data from the player preferences.
+	/// </summary>
     public void LoadData()
     {
         highscoreData = new List<PlayerData>();
@@ -59,6 +69,9 @@ public class HighscoreManager: MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Updates the highscore list view.
+	/// </summary>
     public void UpdateListView()
     {
         int i = 0;
@@ -82,12 +95,16 @@ public class HighscoreManager: MonoBehaviour
 					text.text = highscoreData[i].Date;
 				}
             }
-            Debug.Log("Initialized: " + highscoreData[i].PlayerName);
+            //Debug.Log("Initialized: " + highscoreData[i].PlayerName);
 
             i++;
         }
     }
 
+	/// <summary>
+	/// Adds the given item at the corrected position in the highscore list.
+	/// </summary>
+	/// <param name="player">The player data to be added.</param>
     public void AddItem(PlayerData player)
     {
         bool inserted = false;
@@ -109,6 +126,9 @@ public class HighscoreManager: MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Stores the data to the player prefabs.
+	/// </summary>
     private void storeData()
     {
         int i = 0;

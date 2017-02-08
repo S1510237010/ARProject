@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
 	/// Destroys a game object after a given time has elapsed.
 	/// </summary>
 	/// <param name="tempObject">The game object that should be destroyed.</param>
-	/// <param name="t">The time it should wait before destroying the object.</param>
+	/// <param name="t">The time in seconds it should wait before destroying the object.</param>
 	IEnumerator DestroyGameObject(GameObject tempObject, int t)
 	{
 		//Waits for the specified time and continues afterwards

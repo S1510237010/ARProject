@@ -3,7 +3,9 @@ using System.Collections;
 
 public class DontDestroyOnLoad : MonoBehaviour {
 
-	// Use this for initialization
+	/// <summary>
+	/// Prevents the destruction of a GameObject when the scene is changed.
+	/// </summary>
 	void Awake () {
 		DontDestroyOnLoad(gameObject);
 	}

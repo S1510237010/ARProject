@@ -59,14 +59,16 @@ public class LevelManager : MonoBehaviour {
         }
 		else if (!levelObject.activeInHierarchy && !gameObject.GetComponent<Placeable>().IsPlacing) {
 			FindObjectOfType<SpatialMappingManager> ().DrawVisualMeshes = false;
-            levelObject.SetActive(true);
-            //Debug.Log("SET ACTIVE");
-			//Debug.Log(gameObject.transform.rotation);
-			transform.rotation = Quaternion.Euler (0, 0, transform.rotation.z);
-            //Debug.Log(gameObject.transform.rotation);
+
+			//Debug.Log(gameObject.transform.rotation.y);
+			transform.rotation = Quaternion.Euler (0,transform.eulerAngles.y, 0);
+            //Debug.Log(gameObject.transform.rotation.y);
 			if (debugMode) {
 				StartCoroutine (Test());
 			}
+
+			Player player = levelObject.GetComponentInChildren<Player> ();
+			levelObject.SetActive(true);
         }
     }
 

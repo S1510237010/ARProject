@@ -52,7 +52,12 @@ public class LevelManager : MonoBehaviour {
 	/// Checks if the level is placed and if it isn't already enabled it enables it and hides the mapping meshes
 	/// </summary>
 	void Update(){
-		if (!levelObject.activeInHierarchy && !gameObject.GetComponent<Placeable>().IsPlacing) {
+
+        if (levelObject == null || gameObject == null || gameObject.GetComponent<Placeable>() == null)
+        {
+            Debug.Log("LevelObject or GameObject or Placeable is null");
+        }
+		else if (!levelObject.activeInHierarchy && !gameObject.GetComponent<Placeable>().IsPlacing) {
 			FindObjectOfType<SpatialMappingManager> ().DrawVisualMeshes = false;
             levelObject.SetActive(true);
             //Debug.Log("SET ACTIVE");

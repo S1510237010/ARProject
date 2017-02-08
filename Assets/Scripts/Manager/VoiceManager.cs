@@ -19,7 +19,7 @@ public class VoiceManager : MonoBehaviour {
         for (int i = 0; i < possibleKeywords.Length; i++) {
             switch (possibleKeywords[i]) {
                 case "Start Game":
-                    keywords.Add("Start Game", () => { NavigateToScene.GoToScene("Levels");});
+                    keywords.Add("Start Game", () => { NavigateToScene.GoToScene("Levels"); print("Start Game"); });
                     break; 
 
                 case "Exit Game":

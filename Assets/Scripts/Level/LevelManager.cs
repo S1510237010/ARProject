@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Academy.HoloToolkit.Unity;
-/**
- * This class handles the creation/destruction of levels and puts them at it's own position/rotation
- */
+
+/// <summary>
+/// This class handles the creation/destruction of levels and puts them at it's own position/rotation
+/// </summary>
 public class LevelManager : MonoBehaviour {
+	[Tooltip("Add all levels here in the order that they should be shown.")]
 	public GameObject[] Levels;
+	[Tooltip("Enables the debug mode.")]
 	public bool debugMode;
 
+	/// <summary>
+	/// Stores the currently instantiated level.
+	/// </summary>
     private GameObject levelObject;
+
+	/// <summary>
+	/// Stores the current level index
+	/// </summary>
 	private int currentLevel = 0;
 	public int CurrentLevel{
 		get{ return currentLevel; }
 	}
 
+	/// <summary>
+	/// Singleton implementation
+	/// </summary>
 	private static LevelManager instance;
 	public static LevelManager Instance
 	{
@@ -28,25 +41,32 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
+	// Displays the first level on startup & removes the stored player data of previous sessions
     void Start()
     {
-        DisplayLevel();
+		DisplayLevel();
+		PlayerPrefs.DeleteKey ("player");
     }
 
+	/// <summary>
+	/// Checks if the level is placed and if it isn't already enabled it enables it and hides the mapping meshes
+	/// </summary>
 	void Update(){
 		if (!levelObject.activeInHierarchy && !gameObject.GetComponent<Placeable>().IsPlacing) {
 			FindObjectOfType<SpatialMappingManager> ().DrawVisualMeshes = false;
             levelObject.SetActive(true);
-            Debug.Log("SET ACTIVE");
+            //Debug.Log("SET ACTIVE");
 			transform.rotation = Quaternion.Euler (0, 0, transform.rotation.z);
-            Debug.Log(gameObject.transform.rotation.y);
+            //Debug.Log(gameObject.transform.rotation.y);
 			if (debugMode) {
 				StartCoroutine (Test());
 			}
         }
-		PlayerPrefs.DeleteKey ("player");
     }
 
+	/// <summary>
+	/// Loops through all available levels
+	/// </summary>
 	public IEnumerator Test(){
 		yield return new WaitForSeconds(5);
 		if (LoadNextLevel ()) {
@@ -54,17 +74,19 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Instantiates the new level
+	/// </summary>
 	private void DisplayLevel(){
-
-		Debug.Log("Display Level " + CurrentLevel);
-
+		//Debug.Log("Display Level " + CurrentLevel);
 		levelObject = Instantiate<GameObject> (Levels [currentLevel]);
 		levelObject.transform.SetParent(gameObject.transform, false);
-        //levelObject.transform.position = new Vector3(-1f, -1f, -0.5f);
-        //newLevel.transform.rotation.Set(0, 0, 0, 0);
 	}
 
-	//loads the next level prefab, returns false if there are no more levels
+	/// <summary>
+	/// Loads the next level.
+	/// </summary>
+	/// <returns><c>true</c>, if next level was loaded, <c>false</c> otherwise.</returns>
 	public bool LoadNextLevel(){
 		currentLevel++;
 		if (currentLevel < Levels.Length) {

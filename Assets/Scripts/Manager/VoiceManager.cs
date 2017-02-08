@@ -3,12 +3,17 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 
+/// <summary>
+/// Manages all voice commands
+/// </summary>
 public class VoiceManager : MonoBehaviour {
     public string[] possibleKeywords;
     KeywordRecognizer keywordRecognizer = null;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
 
-    // Use this for initialization
+    /// <summary>
+    /// Adds all necessary keywords to the keywordRecognizer with Lambda expressions doing the next steps
+    /// </summary>
     void Start () {
 
         for (int i = 0; i < possibleKeywords.Length; i++) {
@@ -26,6 +31,7 @@ public class VoiceManager : MonoBehaviour {
                     break;
             }
         }
+
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
@@ -35,6 +41,10 @@ public class VoiceManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Is called when a keyword is recognized and invoces the Lambda expression
+    /// </summary>
+    /// <param name="args">Keyword can be read from the object</param>
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         System.Action keywordAction;

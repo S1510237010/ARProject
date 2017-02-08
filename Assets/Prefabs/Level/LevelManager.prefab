@@ -126,9 +126,9 @@ MonoBehaviour:
     type: 2}
   NotPlaceableBoundsMaterial: {fileID: 2100000, guid: 58d42ea3d6fe280429bf26b5cc4a65d4,
     type: 2}
-  PlaceableShadowMaterial: {fileID: 2100000, guid: a25dd465874dfa54799f6e094507ccff,
+  PlaceableShadowMaterial: {fileID: 2100000, guid: b2c0b0a8d4484bb439690fdffc867efc,
     type: 2}
-  NotPlaceableShadowMaterial: {fileID: 2100000, guid: ca6d4215d30dd1d4fb473ff9a009765d,
+  NotPlaceableShadowMaterial: {fileID: 2100000, guid: faef6e55e55514a4caf8050f7bd9921b,
     type: 2}
   PlacementSurface: 2
   ChildrenToHide: []
